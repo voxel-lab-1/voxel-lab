@@ -165,10 +165,10 @@
     background-repeat: no-repeat;
     background-position: left center;
   }
-  nav .links { display: flex; gap: 28px; font-size: 0.92rem; color: var(--ink-soft); }
-  nav .links a { text-decoration: none; }
-  nav .links a:hover { color: var(--ink); }
-  @media (max-width: 720px) { nav .links { display: none; } }
+  nav.links { display: flex; gap: 28px; font-size: 0.92rem; color: var(--ink-soft); }
+  nav.links a { text-decoration: none; }
+  nav.links a:hover { color: var(--ink); }
+  @media (max-width: 720px) { nav.links { display: none; } }
 
   .btn {
     display: inline-flex;
@@ -620,6 +620,9 @@
     aspect-ratio: 16/13;
     background: var(--bg-raised);
     user-select: none;
+  }
+  @media (max-width: 520px) {
+    .compare { aspect-ratio: 3/4; }
   }
   .compare-pane {
     position: absolute;
@@ -1853,6 +1856,7 @@
         var frame = shot.querySelector('.site-shot-frame');
         if (!frame) return;
         var designWidth = parseFloat(frame.getAttribute('data-design-width')) || 1400;
+        if (shot.clientWidth < 520) designWidth = designWidth * 0.55;
         var scale = shot.clientWidth / designWidth;
         frame.style.transform = 'scale(' + scale + ')';
       });
