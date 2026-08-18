@@ -2414,7 +2414,9 @@
 
 <script>
   (function () {
-    var field = document.getElementById('voxelField');
+    // ---- voxel field (interactive 3D floating engine) ----
+    (function () {
+      var field = document.getElementById('voxelField');
     var hero = field ? field.closest('.hero') : null;
     var heroCopy = hero ? hero.querySelector('.wrap') : null;
     if (!field || !hero) return;
@@ -2630,6 +2632,7 @@
       var extrasWrap = document.getElementById('quoteExtras');
       var valueEl = document.getElementById('quoteValue');
       var timeBadgeEl = document.getElementById('quoteTimeBadge');
+      var bundleBadgeEl = document.getElementById('quoteBundleBadge');
       var summaryEl = document.getElementById('quoteSummary');
       var waBtn = document.getElementById('quoteWhatsappBtn');
       var emailBtn = document.getElementById('quoteEmailBtn');
