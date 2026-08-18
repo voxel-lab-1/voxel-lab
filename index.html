@@ -1008,12 +1008,15 @@
   }
   .compare-handle {
     position: absolute;
-    top: 0; bottom: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
     width: 3px;
     background: var(--violet);
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
+    z-index: 10;
   }
   .compare-handle::after {
     content: "⇔";
@@ -1030,11 +1033,14 @@
   }
   .compare-range {
     position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     margin: 0;
     opacity: 0;
     cursor: ew-resize;
+    z-index: 11;
   }
   .compare-labels {
     display: flex;
@@ -1868,7 +1874,7 @@
         <h2>Arrastra para ver la diferencia</h2>
         <p>Así se ve una web genérica cualquiera frente a la nuestra: real, tal como carga hoy.</p>
       </div>
-      <div class="compare reveal">
+      <div class="compare reveal" id="compareBox">
           <div class="compare-pane compare-after">
             <span class="badge">🚀 VOXEL LAB (Nuestra Arquitectura en Vivo)</span>
             <div class="site-shot site-shot--voxel" id="shotAfter">
@@ -2044,7 +2050,6 @@
             <div class="fake-cursor is-before" style="left:20%; top:65%;"></div>
             <div class="compare-metric">carga en <b>6.4s</b> · 48 plugins · plantilla apilada</div>
           </div>
-        </div>
         <div class="compare-handle" id="compareHandle"></div>
         <input type="range" class="compare-range" id="compareRange" min="0" max="100" value="50" aria-label="Comparar antes y después">
       </div>
