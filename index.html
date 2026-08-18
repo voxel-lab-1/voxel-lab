@@ -1365,6 +1365,17 @@
     padding: 4px 12px;
     border-radius: 20px;
   }
+  .quote-result-bundle-badge {
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: rgba(36, 216, 255, 0.15);
+    border: 1px solid var(--cyan);
+    padding: 4px 12px;
+    border-radius: 20px;
+    box-shadow: 0 0 14px rgba(36, 216, 255, 0.35);
+  }
   .quote-result-time-badge {
     font-family: "JetBrainsMonoVL", monospace;
     font-size: 0.75rem;
@@ -2118,7 +2129,7 @@
         <!-- Paso 1: Tipo de Proyecto con Tarjetas e Iconos SVG -->
         <div class="quote-field">
           <div class="quote-label">
-            <span class="quote-label-num">01</span> 1. Tipo de solución principal (Aproximado)
+            <span class="quote-label-num">01</span> 1. Tipo de solución principal (Puedes seleccionar una o varias opciones)
           </div>
           <div class="quote-cards-grid" id="quoteType">
             
@@ -2249,6 +2260,7 @@
         <div class="quote-result">
           <div class="quote-result-header">
             <span class="quote-result-label">Inversión Estimada Aproximada</span>
+            <span class="quote-result-bundle-badge" id="quoteBundleBadge" style="display:none;"></span>
             <span class="quote-result-time-badge" id="quoteTimeBadge">⏱️ Tiempo estimado: Selecciona un proyecto</span>
           </div>
           <div class="quote-result-value" id="quoteValue">Selecciona una opción arriba</div>
@@ -2521,25 +2533,70 @@
       
       if (!typeWrap || !valueEl || !waBtn || !emailBtn) return;
 
-      var selectedType = null;
+      var selectedTypes = [];
       var selectedComp = compWrap ? compWrap.querySelector('.quote-extra-chip.is-active') : null;
       var selectedExtras = [];
       var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
 
       function recalc() {
-        if (!selectedType) {
-          valueEl.textContent = 'Selecciona una opción arriba';
+        selectedTypes = Array.from(typeWrap.querySelectorAll('.quote-card.is-active'));
+
+        if (selectedTypes.length === 0) {
+          valueEl.textContent = 'Selecciona una o más opciones arriba';
           if (timeBadgeEl) timeBadgeEl.textContent = '⏱️ Tiempo estimado: Selecciona un proyecto';
-          if (summaryEl) summaryEl.textContent = 'Elige un tipo de proyecto para calcular la cotización estimada aproximada en tiempo real.';
+          if (bundleBadgeEl) bundleBadgeEl.style.display = 'none';
+          if (summaryEl) summaryEl.textContent = 'Elige uno o varios tipos de proyecto para calcular la cotización estimada en tiempo real.';
           waBtn.setAttribute('aria-disabled', 'true');
           emailBtn.setAttribute('aria-disabled', 'true');
           return;
         }
 
-        var baseMin = parseFloat(selectedType.dataset.min) || 0;
-        var baseMax = parseFloat(selectedType.dataset.max) || 0;
-        var timeMin = parseFloat(selectedType.dataset.timeMin) || 1;
-        var timeMax = parseFloat(selectedType.dataset.timeMax) || 3;
+        var rawMin = 0;
+        var rawMax = 0;
+        var maxTimeMin = 0;
+        var maxTimeMax = 0;
+        var typeTitles = [];
+
+        selectedTypes.forEach(function (card) {
+          rawMin += parseFloat(card.dataset.min) || 0;
+          rawMax += parseFloat(card.dataset.max) || 0;
+          maxTimeMin = Math.max(maxTimeMin, parseFloat(card.dataset.timeMin) || 1);
+          maxTimeMax = Math.max(maxTimeMax, parseFloat(card.dataset.timeMax) || 3);
+          typeTitles.push(card.dataset.title || 'Solución');
+        });
+
+        // Add small offset for multi-project integration if multiple selected
+        if (selectedTypes.length > 1) {
+          maxTimeMin += Math.round((selectedTypes.length - 1) * 0.5);
+          maxTimeMax += Math.round((selectedTypes.length - 1) * 1.0);
+        }
+
+        // Calculate Ecosystem Bundle Discount
+        var discountFactor = 1.0;
+        var bundleBadgeText = '';
+
+        if (selectedTypes.length === 2) {
+          discountFactor = 0.85; // 15% discount
+          bundleBadgeText = '✨ Combo Ecosistema (-15% de ahorro)';
+        } else if (selectedTypes.length === 3) {
+          discountFactor = 0.80; // 20% discount
+          bundleBadgeText = '✨ Combo Ecosistema (-20% de ahorro)';
+        } else if (selectedTypes.length >= 4) {
+          discountFactor = 0.75; // 25% discount VIP
+          bundleBadgeText = '🔥 Suite Completa Voxel (-25% Descuento VIP)';
+        }
+
+        if (bundleBadgeEl) {
+          if (bundleBadgeText) {
+            bundleBadgeEl.textContent = bundleBadgeText;
+            bundleBadgeEl.style.display = 'inline-block';
+          } else {
+            bundleBadgeEl.style.display = 'none';
+          }
+        }
+
+        var discountedMin = rawMin * discountFactor;
+        var discountedMax = rawMax * discountFactor;
 
         var compMult = selectedComp ? (parseFloat(selectedComp.dataset.mult) || 1.0) : 1.0;
         var compTimeMult = selectedComp ? (parseFloat(selectedComp.dataset.timeMult) || 1.0) : 1.0;
@@ -2555,30 +2612,31 @@
           extraNames.push(chip.dataset.extra || chip.textContent.trim());
         });
 
-        var finalMin = Math.round((baseMin * compMult) + extrasCost);
-        var finalMax = Math.round((baseMax * compMult) + extrasCost);
-        var finalTimeMin = Math.max(1, Math.round((timeMin * compTimeMult) + extrasTime));
-        var finalTimeMax = Math.max(2, Math.round((timeMax * compTimeMult) + extrasTime));
+        var finalMin = Math.round((discountedMin * compMult) + extrasCost);
+        var finalMax = Math.round((discountedMax * compMult) + extrasCost);
+        var finalTimeMin = Math.max(1, Math.round((maxTimeMin * compTimeMult) + extrasTime));
+        var finalTimeMax = Math.max(2, Math.round((maxTimeMax * compTimeMult) + extrasTime));
 
-        var typeTitle = selectedType.dataset.title || 'Proyecto Digital';
+        var mainTitle = typeTitles.join(' + ');
 
-        // Update UI Text (explicitly stating aproximado)
+        // Update UI Text
         valueEl.textContent = fmt(finalMin) + ' - ' + fmt(finalMax) + ' USD (aprox.)';
         if (timeBadgeEl) {
           timeBadgeEl.textContent = '⏱️ Tiempo estimado: ' + finalTimeMin + ' a ' + finalTimeMax + ' semanas (aprox.)';
         }
 
-        var summaryText = 'Ficha: ' + typeTitle + ' | Alcance: ' + compName + (extraNames.length ? ' | Módulos: ' + extraNames.join(', ') : '');
+        var summaryText = 'Ficha: ' + mainTitle + ' | Alcance: ' + compName + (extraNames.length ? ' | Módulos: ' + extraNames.join(', ') : '');
         if (summaryEl) summaryEl.textContent = summaryText;
 
         // Enable buttons
         waBtn.removeAttribute('aria-disabled');
         emailBtn.removeAttribute('aria-disabled');
 
-        // Store pre-formatted text payload in data attribute
+        // Store pre-formatted text payload for WhatsApp / Email
         var formattedMessage = [
           '📋 *COTIZACIÓN DE PROYECTO (APROXIMADA) - VOXEL LAB*',
-          '• *Tipo de solución:* ' + typeTitle,
+          '• *Servicios seleccionados:* ' + mainTitle,
+          bundleBadgeText ? ('• *Beneficio:* ' + bundleBadgeText) : null,
           '• *Alcance:* ' + compName,
           extraNames.length ? ('• *Módulos adicionales:* ' + extraNames.join(', ')) : null,
           '• *Inversión estimada:* ' + fmt(finalMin) + ' - ' + fmt(finalMax) + ' USD (aprox.)',
@@ -2589,15 +2647,13 @@
 
         waBtn.dataset.payload = formattedMessage;
         emailBtn.dataset.payload = formattedMessage;
-        emailBtn.dataset.subject = 'Cotización de Proyecto: ' + typeTitle;
+        emailBtn.dataset.subject = 'Cotización de Proyecto: ' + mainTitle;
       }
 
-      // Handler for Type Cards
+      // Handler for Type Cards (Multi-Select toggle)
       typeWrap.querySelectorAll('.quote-card').forEach(function (card) {
         card.addEventListener('click', function () {
-          typeWrap.querySelectorAll('.quote-card').forEach(function (c) { c.classList.remove('is-active'); });
-          card.classList.add('is-active');
-          selectedType = card;
+          card.classList.toggle('is-active');
           recalc();
         });
       });
@@ -2631,7 +2687,7 @@
 
       // Interactive Action Buttons without hardcoded numbers
       function handleActionClick(channelName) {
-        if (!selectedType) return;
+        if (selectedTypes.length === 0) return;
         var payload = waBtn.dataset.payload || summaryEl.textContent;
         
         // Copy summary to clipboard if supported
