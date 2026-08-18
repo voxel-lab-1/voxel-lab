@@ -133,7 +133,7 @@
 
   .prose { max-width: 62ch; }
 
-  /* ---------- voxel field (decorative, CSS-only) ---------- */
+  /* ---------- voxel field (interactive 3D floating engine) ---------- */
   .voxel-field {
     position: absolute;
     inset: 0;
@@ -143,11 +143,17 @@
   }
   .cube {
     position: absolute;
-    width: 46px;
-    height: 40px;
-    opacity: 0;
-    animation: rise 1.1s ease forwards;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 42px;
+    opacity: 0.85;
+    will-change: transform, opacity, filter;
+    transition: filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
   }
+  .cube--small { width: 34px; height: 30px; }
+  .cube--large { width: 62px; height: 54px; }
   .cube span {
     position: absolute;
     inset: 0;
@@ -155,6 +161,7 @@
   .cube .cube-top {
     clip-path: polygon(50% 0%, 100% 25%, 50% 50%, 0% 25%);
     background: linear-gradient(135deg, var(--cyan), var(--violet) 85%);
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.35);
   }
   .cube .cube-left {
     clip-path: polygon(0% 25%, 50% 50%, 50% 100%, 0% 75%);
@@ -164,12 +171,8 @@
     clip-path: polygon(100% 25%, 50% 50%, 50% 100%, 100% 75%);
     background: color-mix(in srgb, var(--violet) 42%, black 58%);
   }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(14px) scale(0.9); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
   @media (prefers-reduced-motion: reduce) {
-    .cube { animation: none; opacity: 1; }
+    .cube { animation: none; opacity: 0.8; }
     html { scroll-behavior: auto; }
   }
 
@@ -2412,21 +2415,121 @@
 <script>
   (function () {
     var field = document.getElementById('voxelField');
-    if (field) {
-      var positions = [
-        [6, 14], [16, 60], [28, 22], [40, 74], [52, 10],
-        [64, 55], [74, 30], [86, 66], [92, 18], [22, 88], [58, 86]
-      ];
-      positions.forEach(function (pos, i) {
-        var cube = document.createElement('div');
-        cube.className = 'cube';
-        cube.style.left = pos[0] + '%';
-        cube.style.top = pos[1] + '%';
-        cube.style.animationDelay = (i * 0.08) + 's';
-        cube.innerHTML = '<span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span>';
-        field.appendChild(cube);
+    var hero = field ? field.closest('.hero') : null;
+    var heroCopy = hero ? hero.querySelector('.wrap') : null;
+    if (!field || !hero) return;
+
+    var cubes = [];
+    var mouseX = 0, mouseY = 0;
+    var targetMouseX = 0, targetMouseY = 0;
+
+    // Configuración de cubos 3D [% left, % top, profundidad (0.4-1.3), clase de tamaño]
+    var config = [
+      [5, 12, 0.5, 'cube--small'],
+      [12, 54, 1.1, 'cube--large'],
+      [24, 82, 0.7, ''],
+      [36, 14, 0.4, 'cube--small'],
+      [48, 68, 0.9, ''],
+      [58, 12, 0.6, 'cube--small'],
+      [72, 64, 1.2, 'cube--large'],
+      [84, 18, 0.8, ''],
+      [92, 52, 0.5, 'cube--small'],
+      [18, 28, 0.9, ''],
+      [80, 82, 0.6, 'cube--small'],
+      [42, 88, 1.0, ''],
+      [66, 34, 0.5, 'cube--small'],
+      [8, 76, 0.7, '']
+    ];
+
+    config.forEach(function (c) {
+      var el = document.createElement('div');
+      el.className = 'cube ' + (c[3] || '');
+      el.innerHTML = '<span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span>';
+      field.appendChild(el);
+
+      cubes.push({
+        el: el,
+        baseX: c[0],
+        baseY: c[1],
+        depth: c[2],
+        phaseX: Math.random() * Math.PI * 2,
+        phaseY: Math.random() * Math.PI * 2,
+        speedX: 0.0006 + Math.random() * 0.0006,
+        speedY: 0.0008 + Math.random() * 0.0008,
+        floatRangeX: 12 + Math.random() * 20,
+        floatRangeY: 16 + Math.random() * 26,
+        currentOpacity: 0.85
       });
+    });
+
+    // Seguimiento del mouse para paralaje 3D
+    hero.addEventListener('mousemove', function (e) {
+      var rect = hero.getBoundingClientRect();
+      targetMouseX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+      targetMouseY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+    });
+
+    hero.addEventListener('mouseleave', function () {
+      targetMouseX = 0;
+      targetMouseY = 0;
+    });
+
+    var startTime = performance.now();
+
+    function animate(now) {
+      var elapsed = now - startTime;
+
+      // Suavizado de movimiento de mouse
+      mouseX += (targetMouseX - mouseX) * 0.05;
+      mouseY += (targetMouseY - mouseY) * 0.05;
+
+      // Obtener caja contenedora del texto para desvanecimiento por oclusión
+      var fieldRect = field.getBoundingClientRect();
+      var copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
+
+      // Área protegida del texto con margen de amortiguación
+      var textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
+      var textRight = copyRect ? (copyRect.right - fieldRect.left + 25) : -999;
+      var textTop = copyRect ? (copyRect.top - fieldRect.top - 25) : -999;
+      var textBottom = copyRect ? (copyRect.bottom - fieldRect.top + 25) : -999;
+
+      cubes.forEach(function (cube) {
+        // Onda flotante continua
+        var floatX = Math.sin(elapsed * cube.speedX + cube.phaseX) * cube.floatRangeX;
+        var floatY = Math.cos(elapsed * cube.speedY + cube.phaseY) * cube.floatRangeY;
+
+        // Desplazamiento por paralaje del cursor según profundidad
+        var parallaxX = mouseX * 38 * cube.depth;
+        var parallaxY = mouseY * 26 * cube.depth;
+
+        // Posición actual en píxeles
+        var pixelX = (fieldRect.width * (cube.baseX / 100)) + floatX + parallaxX;
+        var pixelY = (fieldRect.height * (cube.baseY / 100)) + floatY + parallaxY;
+
+        // Comprobar si el cubo pasa por detrás del texto principal
+        var isBehindText = (
+          copyRect &&
+          pixelX >= textLeft && pixelX <= textRight &&
+          pixelY >= textTop && pixelY <= textBottom
+        );
+
+        // Desvanecer a 0.16 y aplicar leve desenfoque detrás del texto para 100% legibilidad; 0.85-1.0 fuera del texto
+        var targetOpacity = isBehindText ? 0.16 : Math.min(1.0, 0.75 + (cube.depth * 0.25));
+        var targetBlur = isBehindText ? 'blur(3px)' : 'blur(0px)';
+
+        cube.currentOpacity += (targetOpacity - cube.currentOpacity) * 0.08;
+
+        // Aplicar transformación 3D y opacidad suave
+        cube.el.style.transform = 'translate3d(' + pixelX.toFixed(1) + 'px, ' + pixelY.toFixed(1) + 'px, 0) scale(' + (0.75 + cube.depth * 0.35).toFixed(2) + ')';
+        cube.el.style.opacity = cube.currentOpacity.toFixed(3);
+        cube.el.style.filter = targetBlur;
+      });
+
+      requestAnimationFrame(animate);
     }
+
+    requestAnimationFrame(animate);
+  })();
 
     var navToggle = document.getElementById('navToggle');
     var mobileDrawer = document.getElementById('mobileDrawer');
