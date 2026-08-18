@@ -1103,6 +1103,225 @@
   .real-mock-photo { flex: 1; height: 300px; border-radius: 6px; background: linear-gradient(160deg, #ffb199, #ff8fb1 40%, #6fb1fc); position: relative; overflow: hidden; }
   .real-mock-photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 60%); }
   
+  /* ---------- 1. BOT IA DEMO STYLES ---------- */
+  .bot-chat-container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .bot-chat-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bot-profile { display: flex; align-items: center; gap: 12px; }
+  .bot-avatar { font-size: 1.6rem; width: 42px; height: 42px; border-radius: 50%; background: var(--cube-b); display: flex; align-items: center; justify-content: center; }
+  .bot-info { display: flex; flex-direction: column; }
+  .bot-name { font-family: "UnboundedVL", sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+  .bot-status { font-family: "JetBrainsMonoVL", monospace; font-size: 0.72rem; color: var(--cyan); display: flex; align-items: center; gap: 6px; }
+  .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulseDot 2s infinite; }
+  @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .bot-badge { font-family: "JetBrainsMonoVL", monospace; font-size: 0.7rem; padding: 4px 10px; border-radius: 999px; background: rgba(154,130,255,0.12); color: var(--violet); border: 1px solid rgba(154,130,255,0.25); }
+
+  .bot-chat-body {
+    padding: 24px;
+    min-height: 220px;
+    max-height: 380px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(0,0,0,0.2);
+  }
+  .chat-msg { display: flex; max-width: 85%; }
+  .msg-bot { align-self: flex-start; }
+  .msg-user { align-self: flex-end; }
+  .msg-bubble {
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .msg-bot .msg-bubble { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); border-bottom-left-radius: 2px; }
+  .msg-user .msg-bubble { background: var(--violet); color: var(--violet-ink); font-weight: 600; border-bottom-right-radius: 2px; }
+
+  .bot-quick-actions {
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .bot-action-btn {
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.78rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: rgba(36,216,255,0.08);
+    color: var(--cyan);
+    border: 1px solid rgba(36,216,255,0.25);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .bot-action-btn:hover { background: rgba(36,216,255,0.2); transform: translateY(-1px); }
+
+  /* ---------- 2. SPEED AUDIT STYLES ---------- */
+  .speed-audit-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(36,216,255,0.04) 100%);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 30px;
+    max-width: 820px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+  }
+  .speed-input-box {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  @media (max-width: 600px) { .speed-input-box { flex-direction: column; } }
+  .input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 0 14px;
+  }
+  .input-icon { margin-right: 8px; font-size: 1.1rem; }
+  .input-wrap input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.9rem;
+    padding: 14px 0;
+  }
+  .speed-result-box { margin-top: 28px; animation: fadeIn 0.4s ease; }
+  .speed-metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 640px) { .speed-metrics-grid { grid-template-columns: 1fr; } }
+  .speed-metric-card {
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+  }
+  .metric--danger { background: rgba(220,90,60,0.08); border-color: rgba(220,90,60,0.25); }
+  .metric--warning { background: rgba(255,193,7,0.08); border-color: rgba(255,193,7,0.25); }
+  .metric--success { background: rgba(36,216,255,0.08); border-color: rgba(36,216,255,0.3); }
+  .metric-title { font-family: "JetBrainsMonoVL", monospace; font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; }
+  .metric-val { font-family: "UnboundedVL", sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); margin: 6px 0; }
+  .metric--danger .metric-val { color: #ff6b6b; }
+  .metric--warning .metric-val { color: #ffd166; }
+  .metric--success .metric-val { color: var(--cyan); }
+  .metric-sub { font-size: 0.75rem; color: var(--ink-soft); }
+  .speed-audit-footer {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.85rem;
+  }
+  @media (max-width: 600px) { .speed-audit-footer { flex-direction: column; text-align: center; } }
+
+  /* ---------- 3. ROI CALCULATOR STYLES ---------- */
+  .roi-box {
+    max-width: 820px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 30px;
+    box-shadow: var(--shadow);
+  }
+  .roi-sliders { display: flex; flex-direction: column; gap: 24px; }
+  .roi-field { display: flex; flex-direction: column; gap: 10px; }
+  .roi-label-row { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .roi-val { font-family: "JetBrainsMonoVL", monospace; color: var(--cyan); font-size: 0.95rem; }
+  .roi-field input[type="range"] {
+    width: 100%;
+    accent-color: var(--cyan);
+    height: 6px;
+    border-radius: 3px;
+    background: var(--line-strong);
+    cursor: pointer;
+  }
+  .roi-results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 32px; }
+  @media (max-width: 580px) { .roi-results-grid { grid-template-columns: 1fr; } }
+  .roi-card { padding: 20px; border-radius: 14px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); }
+  .card--loss { background: rgba(220,90,60,0.08); border-color: rgba(220,90,60,0.25); }
+  .card--gain { background: rgba(36,216,255,0.08); border-color: rgba(36,216,255,0.3); }
+  .card-tag { font-family: "JetBrainsMonoVL", monospace; font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; }
+  .roi-card h3 { font-family: "UnboundedVL", sans-serif; font-size: 1.8rem; font-weight: 700; margin: 4px 0; }
+  .card--loss h3 { color: #ff6b6b; }
+  .card--gain h3 { color: var(--cyan); }
+  .roi-card p { font-size: 0.8rem; color: var(--ink-soft); margin: 0; }
+
+  /* ---------- 4. PORTFOLIO STYLES ---------- */
+  .portfolio-filter-bar { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+  .port-filter-btn {
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .port-filter-btn.is-active, .port-filter-btn:hover { background: var(--violet); color: var(--violet-ink); font-weight: 700; border-color: var(--violet); }
+
+  .portfolio-grid-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+  @media (max-width: 680px) { .portfolio-grid-cards { grid-template-columns: 1fr; } }
+  .port-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .port-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+  .port-card-preview {
+    height: 140px;
+    position: relative;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .img-ecom { background: linear-gradient(135deg, #1d2671, #c33764); }
+  .img-saas { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+  .img-bot { background: linear-gradient(135deg, #11998e, #38ef7d); }
+  .img-soft { background: linear-gradient(135deg, #4776e6, #8e54e9); }
+  .port-badge { font-family: "JetBrainsMonoVL", monospace; font-size: 0.68rem; padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; backdrop-filter: blur(4px); }
+  .port-card-content { padding: 20px; }
+  .port-card-content h3 { font-family: "FrauncesVL", serif; font-size: 1.15rem; color: var(--ink); margin: 0 0 8px; }
+  .port-card-content p { font-size: 0.84rem; color: var(--ink-soft); line-height: 1.4; margin: 0 0 16px; }
+  .port-metrics { display: flex; gap: 12px; font-family: "JetBrainsMonoVL", monospace; font-size: 0.72rem; color: var(--cyan); }
+  .port-metrics span { background: rgba(36,216,255,0.08); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(36,216,255,0.2); }
+  
   /* Generic Site Popups & Overlays */
   .real-mock-popup {
     position: absolute;
@@ -1867,191 +2086,205 @@
     </div>
   </div>
 
-  <section id="comparador">
+  <!-- 🤖 SECTION 1: BOT IA 24/7 EN VIVO -->
+  <section id="botDemo" class="reveal" style="padding: 70px 0;">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Antes / después</span>
-        <h2>Arrastra para ver la diferencia</h2>
-        <p>Así se ve una web genérica cualquiera frente a la nuestra: real, tal como carga hoy.</p>
+      <div class="section-head text-center">
+        <span class="eyebrow">🤖 Demostración en vivo</span>
+        <h2>Prueba nuestro Agente de IA & Automatización</h2>
+        <p>Así atiende Voxel Lab a tus clientes 24/7: sin esperas, respondiendo dudas y cerrando ventas automáticamente.</p>
       </div>
-      <div class="compare reveal" id="compareBox">
-          <div class="compare-pane compare-after">
-            <span class="badge">🚀 VOXEL LAB (Nuestra Arquitectura en Vivo)</span>
-            <div class="site-shot site-shot--voxel" id="shotAfter">
-              <div class="site-shot-frame" data-design-width="1400">
-                <header class="shot-header">
-                  <div class="wrap nav">
-                    <div class="brand brand--image" role="img" aria-label="Voxel Lab"></div>
-                    <nav class="links">
-                      <span style="color: var(--cyan); font-weight: 600;">🌐 Página Web</span>
-                      <span>📱 Web App Progresiva</span>
-                      <span>🤖 Automatización & Bots</span>
-                      <span>🧠 Software e IA</span>
-                    </nav>
-                    <span class="btn btn-primary btn-sm">Auditoría gratis ➔</span>
-                  </div>
-                </header>
-                <section class="hero shot-hero" style="padding: 50px 0 35px;">
-                  <div class="voxel-field">
-                    <div class="cube" style="left:8%; top:18%;"><span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span></div>
-                    <div class="cube" style="left:70%; top:10%;"><span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span></div>
-                    <div class="cube" style="left:86%; top:58%;"><span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span></div>
-                  </div>
-                  <div class="wrap relative" style="display: flex; gap: 36px; align-items: center;">
-                    <div style="flex: 1.2;">
-                      <span class="eyebrow">Arquitectura Voxel Lab · Carga en 0.9s</span>
-                      <h1 style="font-size: 2.3rem; line-height: 1.05; margin: 12px 0;">Tecnología que <em>vende, automatiza y escala</em> tu negocio</h1>
-                      <p class="sub" style="font-size: 0.92rem; margin-bottom: 20px; color: var(--ink-soft);">Webs de ultra-alta velocidad, aplicaciones web instalables, cobros automatizados y software con IA que opera 24/7 sin fallar.</p>
-                      <div class="actions">
-                        <span class="btn btn-primary">Quiero mi auditoría gratis ➔</span>
-                        <span class="btn btn-ghost">Ver qué construimos</span>
-                      </div>
-                    </div>
 
-                    <!-- Cuadro Interactivo en Vivo de Demostración Voxel -->
-                    <div style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 22px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; overflow: hidden;">
-                      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                        <div style="display: flex; align-items: center; gap: 8px; font-family: 'JetBrainsMonoVL', monospace; font-size: 0.72rem; color: var(--cyan);">
-                          <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan);"></span>
-                          SISTEMA VOXEL EN VIVO
-                        </div>
-                        <span style="font-family: 'JetBrainsMonoVL', monospace; font-size: 0.68rem; color: var(--violet); background: rgba(154,130,255,0.12); padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(154,130,255,0.25);">⚡ 99/100 Speed</span>
-                      </div>
-
-                      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px;">
-                        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px;">
-                          <div style="font-size: 0.65rem; color: var(--ink-faint); text-transform: uppercase; font-family: 'JetBrainsMonoVL', monospace;">Ventas Automatizadas</div>
-                          <div style="font-size: 1.3rem; font-weight: 700; color: #fff; margin: 4px 0; font-family: 'UnboundedVL', sans-serif;">+340%</div>
-                          <div style="font-size: 0.68rem; color: var(--cyan);">Cobro 24/7 sin comisión extra</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px;">
-                          <div style="font-size: 0.65rem; color: var(--ink-faint); text-transform: uppercase; font-family: 'JetBrainsMonoVL', monospace;">Tiempo de Carga</div>
-                          <div style="font-size: 1.3rem; font-weight: 700; color: #fff; margin: 4px 0; font-family: 'UnboundedVL', sans-serif;">0.4s</div>
-                          <div style="font-size: 0.68rem; color: var(--violet);">Google Lighthouse 100/100</div>
-                        </div>
-                      </div>
-
-                      <div style="background: linear-gradient(135deg, rgba(36,216,255,0.12) 0%, rgba(154,130,255,0.12) 100%); border: 1px solid rgba(36,216,255,0.3); border-radius: 10px; padding: 14px; display: flex; align-items: center; justify-content: space-between;">
-                        <div>
-                          <div style="font-family: 'FrauncesVL', serif; font-size: 0.9rem; font-weight: 600; color: #fff;">Plataforma Voxel Demo</div>
-                          <div style="font-size: 0.72rem; color: var(--ink-soft);">Pago 1-Clic e Integración IA</div>
-                        </div>
-                        <span class="btn btn-primary btn-sm" style="font-size: 0.72rem; padding: 5px 10px; white-space: nowrap;">Comprar $120 ➔</span>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <section class="shot-services" style="padding: 24px 0 45px;">
-                  <div class="wrap">
-                    <div class="pillars">
-                      <div class="pillar">
-                        <div class="cube-icon"></div>
-                        <span class="tag">Página Web de Alta Conversión</span>
-                        <h3>Sitios que convierten</h3>
-                        <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 4px;">Código a medida ultra-rápido, sin builders pesados. Carga en menos de 1 segundo.</p>
-                      </div>
-                      <div class="pillar">
-                        <div class="cube-icon"></div>
-                        <span class="tag">Web App Instalable</span>
-                        <h3>Experiencia Nativa Móvil</h3>
-                        <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 4px;">Funciona como app nativa directamente en el navegador sin fricción de tiendas.</p>
-                      </div>
-                      <div class="pillar">
-                        <div class="cube-icon"></div>
-                        <span class="tag">Automatización & Bots 24/7</span>
-                        <h3>Cobro y Aviso Automático</h3>
-                        <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 4px;">Pasarelas de pago, facturación y notificaciones instantáneas corriendo solas.</p>
-                      </div>
-                      <div class="pillar">
-                        <div class="cube-icon"></div>
-                        <span class="tag">Software a Medida e IA</span>
-                        <h3>Soluciones que escalan</h3>
-                        <p style="font-size: 0.78rem; color: var(--ink-soft); margin-top: 4px;">Desarrollos a medida respaldados con inteligencia artificial para acelerar tu operación.</p>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              </div>
+      <div class="bot-chat-container">
+        <div class="bot-chat-header">
+          <div class="bot-profile">
+            <div class="bot-avatar">🤖</div>
+            <div class="bot-info">
+              <span class="bot-name">Asistente Virtual Voxel AI</span>
+              <span class="bot-status"><span class="pulse-dot"></span> En línea 24/7 · Respuesta instantánea</span>
             </div>
-            <div class="fake-cursor is-after" style="left:16%; top:80%;"></div>
-            <div class="notify-toast">&#9989; Venta automática confirmada &mdash; $120.00 USD (0.4s)</div>
-            <div class="compare-metric">carga en <b>0.9s</b> · mobile-first · 100% código limpio</div>
+          </div>
+          <span class="bot-badge">⚡ IA Generativa</span>
+        </div>
+
+        <div class="bot-chat-body" id="botChatBody">
+          <div class="chat-msg msg-bot">
+            <div class="msg-bubble">
+              ¡Hola! 👋 Soy el Agente IA de Voxel Lab. Estoy programado para atender a tus clientes las 24 horas del día. Haz clic en una opción abajo para ver cómo puedo trabajar en tu negocio:
+            </div>
+          </div>
+        </div>
+
+        <div class="bot-quick-actions">
+          <button type="button" class="bot-action-btn" onclick="triggerBotQuery('cost')">💰 ¿Cuánto cuesta una Web o App?</button>
+          <button type="button" class="bot-action-btn" onclick="triggerBotQuery('tech')">⚡ ¿Por qué son tan rápidas sus webs?</button>
+          <button type="button" class="bot-action-btn" onclick="triggerBotQuery('audit')">📅 Agendar Auditoría Gratis 15 min</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚡ SECTION 2: AUDITORÍA DE VELOCIDAD EN TIEMPO REAL -->
+  <section id="speedAudit" class="reveal" style="padding: 60px 0;">
+    <div class="wrap">
+      <div class="speed-audit-card">
+        <div class="section-head" style="margin-bottom: 20px;">
+          <span class="eyebrow">⚡ Diagnóstico instantáneo</span>
+          <h2>Analiza la velocidad de tu página web actual</h2>
+          <p>Descubre cuántos clientes y dinero estás dejando ir por tiempos de carga lentos.</p>
+        </div>
+
+        <div class="speed-input-box">
+          <div class="input-wrap">
+            <span class="input-icon">🌐</span>
+            <input type="text" id="speedUrlInput" placeholder="Ej. www.tuempresa.com" aria-label="Dirección de tu página web">
+          </div>
+          <button type="button" class="btn btn-primary" id="speedAuditBtn" onclick="runSpeedAudit()">Analizar Mi Web ⚡</button>
+        </div>
+
+        <div class="speed-result-box" id="speedResultBox" style="display: none;">
+          <div class="speed-metrics-grid">
+            <div class="speed-metric-card metric--danger">
+              <span class="metric-title">Tiempo Carga Estimado</span>
+              <span class="metric-val" id="auditTimeVal">5.8s</span>
+              <span class="metric-sub">⚠️ 53% abandono móvil</span>
+            </div>
+            <div class="speed-metric-card metric--warning">
+              <span class="metric-title">Puntaje Google Speed</span>
+              <span class="metric-val" id="auditScoreVal">38/100</span>
+              <span class="metric-sub">Bajo rendimiento SEO</span>
+            </div>
+            <div class="speed-metric-card metric--success">
+              <span class="metric-title">Solución Voxel Lab</span>
+              <span class="metric-val">0.9s</span>
+              <span class="metric-sub">🚀 99/100 Lighthouse</span>
+            </div>
+          </div>
+          <div class="speed-audit-footer">
+            <span>💡 <b>Diagnóstico:</b> Tu sitio actual acumula fricción. Con la arquitectura Voxel Lab cargarás <b>6x más rápido</b>.</span>
+            <a href="#cotizador" class="btn btn-cyan btn-sm">Optimizar Mi Web Ahora ➔</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💰 SECTION 3: CALCULADORA DE RETORNO DE INVERSIÓN (ROI) -->
+  <section id="roiCalculator" class="reveal" style="padding: 70px 0;">
+    <div class="wrap">
+      <div class="section-head text-center">
+        <span class="eyebrow">💰 Proyección financiera</span>
+        <h2>Calcula cuánto dinero te devolverá Voxel Lab</h2>
+        <p>Nuestras webs y automatizaciones se pagan solas al recuperar clientes perdidos y acelerar ventas 24/7.</p>
+      </div>
+
+      <div class="roi-box">
+        <div class="roi-sliders">
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label for="roiVisitors">Visitas / Prospectos al mes:</label>
+              <span class="roi-val" id="roiVisitorsVal">2,500 personas</span>
+            </div>
+            <input type="range" id="roiVisitors" min="200" max="25000" step="100" value="2500" oninput="recalcROI()">
           </div>
 
-          <div class="compare-pane compare-before" id="comparePaneBefore">
-            <span class="badge">⚠️ WEB OBSOLETA / PLANTILLA PESADA</span>
-            <div class="site-shot site-shot--generic" id="shotBefore">
-              <div class="site-shot-frame" data-design-width="1400">
-                <div class="retro-marquee">
-                  *** ¡BIENVENIDOS AL SITIO OFICIAL! · SUSCRÍBASE A NUESTRO BOLETÍN DE NOTICIAS 2014 PARA RECIBIR OPORTUNIDADES EXCLUSIVAS ***
-                </div>
-                <header class="real-mock-header">
-                  <div class="real-mock-wrap real-mock-nav">
-                    <div class="real-mock-logo">
-                      <span style="font-size: 0.8rem; color: #666; font-weight: normal; display: block;">Sistemas y Servicios Tradicionales</span>
-                      Comercializadora Martínez & Asoc. S.A.S.
-                    </div>
-                    <nav class="real-mock-links">
-                      <span>Inicio</span><span>Quiénes Somos</span><span>Servicios ▾</span><span>Galería</span><span>Contacto</span>
-                    </nav>
-                    <span class="real-mock-cta-small">📞 Llámenos al (555) 019-28</span>
-                  </div>
-                </header>
-                <section class="real-mock-hero">
-                  <!-- Anuncio emergente invasivo de plantilla vieja -->
-                  <div class="real-mock-popup">
-                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; color: #ffeb3b;">⚠️ ¡ATENCIÓN NAVEGANTE!</div>
-                    ¡Suscríbase gratis para recibir nuestra lista de precios 2014 en PDF!
-                    <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: center;">
-                      <input type="text" value="su_correo@ejemplo.com" style="font-size: 0.8rem; padding: 4px 8px; border: 1px solid #ccc; width: 180px;" readonly>
-                      <span style="background: #27ae60; color: #fff; padding: 4px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 2px;">¡ENVIAR!</span>
-                    </div>
-                  </div>
-                  <div class="real-mock-wrap real-mock-hero-inner">
-                    <div class="real-mock-copy">
-                      <span style="font-size: 0.85rem; color: #888;">Empresa fundada en 2004</span>
-                      <h2 style="font-size: 2.1rem; color: #111;">Bienvenidos a nuestro sitio web oficial de la empresa</h2>
-                      <p style="font-size: 1.05rem; color: #555;">Brindamos atención personalizada a empresas y particulares con más de 20 años de experiencia comprobable en el mercado nacional.</p>
-                      <span class="real-mock-cta">DESCARGAR CATÁLOGO EN PDF (14 MB)</span>
-                    </div>
-                    <div class="real-mock-photo">
-                      <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.7rem; padding: 4px 8px;">Imagen ilustrativa de stock</div>
-                    </div>
-                  </div>
-                  <!-- Barra de carga colgada por 48 plugins -->
-                  <div class="real-mock-loader-banner">
-                    <span>⏳ Cargando 48 extensiones de WordPress y jQuery 1.8... (esperando respuesta 6.4s)</span>
-                    <div class="real-mock-loader-bar"><div class="real-mock-loader-fill"></div></div>
-                  </div>
-                </section>
-                <section class="real-mock-services">
-                  <div class="real-mock-wrap" style="display: flex; gap: 30px;">
-                    <div style="flex: 3;">
-                      <h3>Nuestros Servicios Tradicionales</h3>
-                      <div class="real-mock-service-grid">
-                        <div class="real-mock-service">📁 Asesoría Tradicional</div>
-                        <div class="real-mock-service">📄 Cotización Manual</div>
-                        <div class="real-mock-service">📞 Atención de 9 a 17h</div>
-                        <div class="real-mock-service">✉️ Formulario por Email</div>
-                      </div>
-                    </div>
-                    <div style="flex: 1; background: #e8e3d3; padding: 16px; border: 1px solid #ccc; font-size: 0.8rem;">
-                      <b>👁️ Contador de visitas:</b><br>
-                      <span style="font-family: monospace; font-size: 1.2rem; background: #000; color: #0f0; padding: 2px 6px;">0048291</span>
-                      <br><br>
-                      <b>📌 Horarios:</b><br>
-                      Lunes a Viernes de 9:00 a 17:00h
-                    </div>
-                  </div>
-                </section>
-              </div>
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label for="roiTicket">Venta promedio por cliente ($ USD):</label>
+              <span class="roi-val" id="roiTicketVal">$80 USD</span>
             </div>
-            <div class="spinner"></div>
-            <div class="fake-cursor is-before" style="left:20%; top:65%;"></div>
-            <div class="compare-metric">carga en <b>6.4s</b> · 48 plugins · plantilla apilada</div>
+            <input type="range" id="roiTicket" min="10" max="1000" step="10" value="80" oninput="recalcROI()">
           </div>
-        <div class="compare-handle" id="compareHandle"></div>
-        <input type="range" class="compare-range" id="compareRange" min="0" max="100" value="50" aria-label="Comparar antes y después">
+        </div>
+
+        <div class="roi-results-grid">
+          <div class="roi-card card--loss">
+            <span class="card-tag">Pérdida Actual Estimada</span>
+            <h3 id="roiLossVal">-$3,200 USD</h3>
+            <p>Por lentitud, falta de WhatsApp 24/7 y cobros manuales.</p>
+          </div>
+          <div class="roi-card card--gain">
+            <span class="card-tag">Ganancia Proyectada Voxel</span>
+            <h3 id="roiGainVal">+$5,400 USD</h3>
+            <p>Ventas automáticas 24/7 con conversión 3x más rápida.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🏆 SECTION 4: PORTAFOLIO INTERACTIVO DE CASOS DE ÉXITO -->
+  <section id="portafolio" class="reveal" style="padding: 70px 0;">
+    <div class="wrap">
+      <div class="section-head text-center">
+        <span class="eyebrow">🏆 Casos de éxito</span>
+        <h2>Portafolio de Soluciones Voxel Lab</h2>
+        <p>Explora cómo transformamos la velocidad y ventas de negocios reales con nuestra arquitectura.</p>
+      </div>
+
+      <div class="portfolio-filter-bar">
+        <button type="button" class="port-filter-btn is-active" onclick="filterPort('all', this)">✨ Todos</button>
+        <button type="button" class="port-filter-btn" onclick="filterPort('web', this)">🌐 Páginas Web</button>
+        <button type="button" class="port-filter-btn" onclick="filterPort('app', this)">📱 Web Apps</button>
+        <button type="button" class="port-filter-btn" onclick="filterPort('bot', this)">🤖 Automatización & IA</button>
+      </div>
+
+      <div class="portfolio-grid-cards">
+        <div class="port-card" data-cat="web">
+          <div class="port-card-preview img-ecom">
+            <span class="port-badge">🌐 Página Web</span>
+          </div>
+          <div class="port-card-content">
+            <h3>E-Commerce Moda & Boutiques</h3>
+            <p>Plataforma de alta velocidad con pago 1-clic y catálogo optimizado para celular.</p>
+            <div class="port-metrics">
+              <span>⚡ Carga 0.4s</span>
+              <span>📈 +180% Conversión</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="port-card" data-cat="app">
+          <div class="port-card-preview img-saas">
+            <span class="port-badge">📱 Web App</span>
+          </div>
+          <div class="port-card-content">
+            <h3>App de Reservas & Servicios</h3>
+            <p>Web app instalable en pantalla de inicio para clientes sin tiendas de aplicaciones.</p>
+            <div class="port-metrics">
+              <span>⚡ PWA Nativa</span>
+              <span>📈 +240% Retención</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="port-card" data-cat="bot">
+          <div class="port-card-preview img-bot">
+            <span class="port-badge">🤖 Bot & IA</span>
+          </div>
+          <div class="port-card-content">
+            <h3>Bot de Citas & WhatsApp 24/7</h3>
+            <p>Agendamiento automático con integración a Google Calendar y pasarela PayU/Stripe.</p>
+            <div class="port-metrics">
+              <span>⚡ 24/7 Activo</span>
+              <span>📈 45 Citas/Semana</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="port-card" data-cat="bot">
+          <div class="port-card-preview img-soft">
+            <span class="port-badge">🧠 Software e IA</span>
+          </div>
+          <div class="port-card-content">
+            <h3>Dashboard de Gestión & Asistente IA</h3>
+            <p>Sistema interno a medida con copiloto IA para análisis de ventas y clientes.</p>
+            <div class="port-metrics">
+              <span>⚡ IA Generativa</span>
+              <span>📈 -70% Tiempo Manual</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -3053,6 +3286,112 @@
     } else {
       revealEls.forEach(function (el) { el.classList.add('in'); });
     }
+
+    // ---- 1. Bot IA Demo Logic ----
+    window.triggerBotQuery = function (type) {
+      var chatBody = document.getElementById('botChatBody');
+      if (!chatBody) return;
+
+      var userText = '';
+      var botReply = '';
+
+      if (type === 'cost') {
+        userText = '💰 ¿Cuánto cuesta una Web o App?';
+        botReply = 'Nuestras soluciones inician desde valores aproximados según la complejidad. Por ejemplo, una Página Web de Alta Conversión parte desde $490 USD. ¡Puedes usar nuestra calculadora interactiva más abajo para personalizar tu presupuesto!';
+      } else if (type === 'tech') {
+        userText = '⚡ ¿Por qué son tan rápidas sus webs?';
+        botReply = 'A diferencia de las agencias tradicionales que usan plantillas pesadas y decenas de plugins que ralentizan la página, en Voxel Lab escribimos código a medida optimizado para Google Lighthouse (100/100). ¡Cargas menores a 1 segundo!';
+      } else if (type === 'audit') {
+        userText = '📅 Agendar Auditoría Gratis 15 min';
+        botReply = '¡Excelente decisión! 🚀 Puedes hacer clic en el botón de WhatsApp abajo o contactarnos directamente para agendar la sesión técnica de 15 minutos sin ningún compromiso.';
+      }
+
+      var userMsg = document.createElement('div');
+      userMsg.className = 'chat-msg msg-user';
+      userMsg.innerHTML = '<div class="msg-bubble">' + userText + '</div>';
+      chatBody.appendChild(userMsg);
+
+      setTimeout(function () {
+        var botMsg = document.createElement('div');
+        botMsg.className = 'chat-msg msg-bot';
+        botMsg.innerHTML = '<div class="msg-bubble">' + botReply + '</div>';
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 400);
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    // ---- 2. Speed Audit Tool Logic ----
+    window.runSpeedAudit = function () {
+      var input = document.getElementById('speedUrlInput');
+      var resBox = document.getElementById('speedResultBox');
+      var btn = document.getElementById('speedAuditBtn');
+      if (!input || !resBox || !btn) return;
+
+      var url = input.value.trim();
+      if (!url) {
+        alert('Por favor ingresa la dirección de tu sitio web.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Analizando... ⚡';
+
+      setTimeout(function () {
+        btn.disabled = false;
+        btn.textContent = 'Analizar Mi Web ⚡';
+        resBox.style.display = 'block';
+
+        var timeVal = (3.5 + Math.random() * 3.8).toFixed(1) + 's';
+        var scoreVal = Math.floor(25 + Math.random() * 25) + '/100';
+
+        var timeEl = document.getElementById('auditTimeVal');
+        var scoreEl = document.getElementById('auditScoreVal');
+        if (timeEl) timeEl.textContent = timeVal;
+        if (scoreEl) scoreEl.textContent = scoreVal;
+      }, 1200);
+    };
+
+    // ---- 3. ROI Calculator Logic ----
+    window.recalcROI = function () {
+      var visitorsEl = document.getElementById('roiVisitors');
+      var ticketEl = document.getElementById('roiTicket');
+      var visValEl = document.getElementById('roiVisitorsVal');
+      var tickValEl = document.getElementById('roiTicketVal');
+      var lossEl = document.getElementById('roiLossVal');
+      var gainEl = document.getElementById('roiGainVal');
+
+      if (!visitorsEl || !ticketEl) return;
+
+      var visitors = parseInt(visitorsEl.value, 10) || 2500;
+      var ticket = parseInt(ticketEl.value, 10) || 80;
+
+      if (visValEl) visValEl.textContent = visitors.toLocaleString('en-US') + ' personas';
+      if (tickValEl) tickValEl.textContent = '$' + ticket + ' USD';
+
+      var loss = Math.round(visitors * 0.12 * ticket * 0.35);
+      var gain = Math.round(visitors * 0.22 * ticket * 0.40);
+
+      if (lossEl) lossEl.textContent = '-$' + loss.toLocaleString('en-US') + ' USD';
+      if (gainEl) gainEl.textContent = '+$' + gain.toLocaleString('en-US') + ' USD';
+    };
+
+    // ---- 4. Portfolio Filter Logic ----
+    window.filterPort = function (cat, btn) {
+      var buttons = document.querySelectorAll('.port-filter-btn');
+      buttons.forEach(function (b) { b.classList.remove('is-active'); });
+      if (btn) btn.classList.add('is-active');
+
+      var cards = document.querySelectorAll('.port-card');
+      cards.forEach(function (card) {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    };
   })();
 </script>
 </div>
