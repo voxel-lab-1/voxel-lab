@@ -1080,7 +1080,7 @@
     text-align: center;
   }
 
-  /* ---------- believable generic real-world site ---------- */
+  /* ---------- believable generic real-world site (cluttered & slow) ---------- */
   .real-mock-header { background: #f4f1e8; border-bottom: 3px solid #1a3d6d; padding: 22px 0; }
   .real-mock-wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
   .real-mock-nav { display: flex; align-items: center; gap: 24px; }
@@ -1096,7 +1096,106 @@
   .real-mock-cta { background: linear-gradient(180deg, #5b9bd5, #2e6da4); color: #fff; padding: 16px 32px; border-radius: 4px; font-family: Arial, sans-serif; font-weight: bold; font-size: 1.05rem; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 3px rgba(0,0,0,0.3); display: inline-block; }
   .real-mock-photo { flex: 1; height: 300px; border-radius: 6px; background: linear-gradient(160deg, #ffb199, #ff8fb1 40%, #6fb1fc); position: relative; overflow: hidden; }
   .real-mock-photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 60%); }
-  .real-mock-popup { position: absolute; top: 18px; right: 18px; background: #c0392b; color: #fff; padding: 12px 18px; font-family: Arial, sans-serif; font-weight: bold; font-size: 0.95rem; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 3; }
+  
+  /* Generic Site Popups & Overlays */
+  .real-mock-popup {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d9534f;
+    color: #ffffff;
+    padding: 18px 36px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border-radius: 6px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    z-index: 10;
+    text-align: center;
+    border: 3px solid #ffffff;
+    animation: popupBounce 2s infinite ease-in-out;
+    white-space: nowrap;
+  }
+  @keyframes popupBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+
+  .real-mock-loader-banner {
+    position: absolute;
+    bottom: 25px;
+    left: 40px;
+    right: 40px;
+    background: #fff8e1;
+    border: 2px solid #ffe082;
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-family: Arial, sans-serif;
+    font-size: 1.05rem;
+    color: #856404;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  }
+  .real-mock-loader-bar {
+    width: 240px; height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden;
+  }
+  .real-mock-loader-fill {
+    width: 65%; height: 100%; background: #f0ad4e; animation: loadBar 3s infinite linear;
+  }
+  @keyframes loadBar { 0% { width: 20%; } 50% { width: 75%; } 100% { width: 20%; } }
+
+  /* Voxel Lab Showcase UI (After side) */
+  .voxel-showcase-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #090B14 0%, #121626 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .voxel-showcase-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 14px;
+  }
+  .voxel-showcase-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "UnboundedVL", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .voxel-showcase-brand .dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+  }
+  .voxel-showcase-pills {
+    display: flex;
+    gap: 8px;
+  }
+  .voxel-showcase-pill {
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(154,130,255,0.12);
+    color: var(--violet);
+    border: 1px solid rgba(154,130,255,0.25);
+  }
+  .voxel-showcase-pill--speed {
+    background: rgba(36,216,255,0.12);
+    color: var(--cyan);
+    border-color: rgba(36,216,255,0.3);
+  }
 
   /* ---------- portfolio ---------- */
   .portfolio-grid {
@@ -1841,37 +1940,43 @@
           <div class="compare-metric">carga en <b>0.9s</b> · mobile-first</div>
         </div>
         <div class="compare-pane compare-before" id="comparePaneBefore">
-          <span class="badge">WEB GENÉRICA</span>
+          <span class="badge">⚠️ WEB GENÉRICA (PLANTILLA PESADA)</span>
           <div class="site-shot site-shot--generic" id="shotBefore">
             <div class="site-shot-frame" data-design-width="1400">
               <header class="real-mock-header">
                 <div class="real-mock-wrap real-mock-nav">
-                  <div class="real-mock-logo">Soluciones Martínez</div>
+                  <div class="real-mock-logo">Soluciones Genéricas & Asoc.</div>
                   <nav class="real-mock-links">
-                    <span>Inicio</span><span>Nosotros</span><span>Servicios</span><span>Contacto</span>
+                    <span>Inicio</span><span>Nosotros</span><span>Servicios</span><span>Blog</span><span>Contacto</span>
                   </nav>
-                  <span class="real-mock-cta-small">Llámenos</span>
+                  <span class="real-mock-cta-small">Llámenos Hoy</span>
                 </div>
               </header>
               <section class="real-mock-hero">
-                <div class="real-mock-popup">¡Promoción por tiempo limitado!</div>
+                <!-- Anuncio emergente invasivo de plantilla vieja -->
+                <div class="real-mock-popup">⚠️ ¡ATENCIÓN! Suscríbase a nuestro boletín para 5% OFF</div>
                 <div class="real-mock-wrap real-mock-hero-inner">
                   <div class="real-mock-copy">
-                    <h2>Bienvenidos a Soluciones Martínez</h2>
-                    <p>Más de 15 años ofreciendo servicios de calidad para su hogar y empresa.</p>
-                    <span class="real-mock-cta">Solicitar Información</span>
+                    <h2>Bienvenidos a Soluciones Genéricas</h2>
+                    <p>Ofrecemos servicios convencionales con plantillas prefabricadas. Llene el formulario de contacto para cotizar.</p>
+                    <span class="real-mock-cta">Haga Clic Aquí</span>
                   </div>
                   <div class="real-mock-photo"></div>
+                </div>
+                <!-- Barra de carga lenta colgada -->
+                <div class="real-mock-loader-banner">
+                  <span>⏳ Cargando 48 plugins pesados... (esperando respuesta)</span>
+                  <div class="real-mock-loader-bar"><div class="real-mock-loader-fill"></div></div>
                 </div>
               </section>
               <section class="real-mock-services">
                 <div class="real-mock-wrap">
-                  <h3>Nuestros Servicios</h3>
+                  <h3>Nuestros Servicios Tradicionales</h3>
                   <div class="real-mock-service-grid">
-                    <div class="real-mock-service">Plomería</div>
-                    <div class="real-mock-service">Electricidad</div>
-                    <div class="real-mock-service">Pintura</div>
-                    <div class="real-mock-service">Remodelación</div>
+                    <div class="real-mock-service">Servicio Básico 1</div>
+                    <div class="real-mock-service">Servicio Básico 2</div>
+                    <div class="real-mock-service">Servicio Básico 3</div>
+                    <div class="real-mock-service">Servicio Básico 4</div>
                   </div>
                 </div>
               </section>
@@ -1879,7 +1984,7 @@
           </div>
           <div class="spinner"></div>
           <div class="fake-cursor is-before" style="left:20%; top:65%;"></div>
-          <div class="compare-metric">carga en <b>6.4s</b> · plantilla apilada</div>
+          <div class="compare-metric">carga en <b>6.4s</b> · 48 plugins · plantilla apilada</div>
         </div>
         <div class="compare-handle" id="compareHandle"></div>
         <input type="range" class="compare-range" id="compareRange" min="0" max="100" value="50" aria-label="Comparar antes y después">
