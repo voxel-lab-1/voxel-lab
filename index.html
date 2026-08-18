@@ -1042,6 +1042,40 @@
     cursor: ew-resize;
     z-index: 11;
   }
+  
+  /* ---------- Subtle Language & Currency Picker ---------- */
+  .lang-curr-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+  .picker-btn {
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .picker-btn:hover, .picker-btn.is-active {
+    color: var(--cyan);
+    background: rgba(36,216,255,0.12);
+  }
+  .picker-sep {
+    color: var(--line-strong);
+    user-select: none;
+  }
   .compare-labels {
     display: flex;
     justify-content: space-between;
@@ -2025,14 +2059,20 @@
   <div class="wrap nav">
     <div class="brand brand--image" role="img" aria-label="Voxel Lab"></div>
     <nav class="links">
-      <a href="#servicios">Servicios</a>
-      <a href="#portafolio">Portafolio</a>
-      <a href="#cotizador">Cotizar</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#faq">Preguntas</a>
+      <a href="#servicios" data-i18n="nav_services">Servicios</a>
+      <a href="#portafolio" data-i18n="nav_portfolio">Portafolio</a>
+      <a href="#cotizador" data-i18n="nav_quote">Cotizar</a>
+      <a href="#proceso" data-i18n="nav_process">Proceso</a>
+      <a href="#faq" data-i18n="nav_faq">Preguntas</a>
     </nav>
     <div style="display:flex; align-items:center; gap:10px;">
-      <a class="btn btn-primary btn-sm" href="#contacto">Auditoría gratis</a>
+      <!-- Selector Sutil de Idioma (ES/EN) y Moneda (USD/COP) -->
+      <div class="lang-curr-picker">
+        <button type="button" class="picker-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Cambiar idioma (ES / EN)">ES</button>
+        <span class="picker-sep">|</span>
+        <button type="button" class="picker-btn" id="currToggleBtn" onclick="toggleCurrency()" title="Cambiar moneda (USD / COP)">USD</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#contacto" data-i18n="nav_audit">Auditoría gratis</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Abrir menú">
         <span></span>
       </button>
@@ -2040,12 +2080,12 @@
   </div>
   <div class="wrap">
     <nav class="mobile-drawer" id="mobileDrawer">
-      <a href="#servicios">Servicios</a>
-      <a href="#portafolio">Portafolio</a>
-      <a href="#cotizador">Cotizar</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#faq">Preguntas</a>
-      <a href="#contacto">Auditoría gratis</a>
+      <a href="#servicios" data-i18n="nav_services">Servicios</a>
+      <a href="#portafolio" data-i18n="nav_portfolio">Portafolio</a>
+      <a href="#cotizador" data-i18n="nav_quote">Cotizar</a>
+      <a href="#proceso" data-i18n="nav_process">Proceso</a>
+      <a href="#faq" data-i18n="nav_faq">Preguntas</a>
+      <a href="#contacto" data-i18n="nav_audit">Auditoría gratis</a>
     </nav>
   </div>
 </header>
@@ -2944,16 +2984,19 @@
       var selectedTypes = [];
       var selectedComp = compWrap ? compWrap.querySelector('.quote-extra-chip.is-active') : null;
       var selectedExtras = [];
-      var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+      var fmt = function (n) {
+        if (typeof window.formatMoney === 'function') return window.formatMoney(n);
+        return '$' + Math.round(n).toLocaleString('en-US') + ' USD';
+      };
 
       function recalc() {
         selectedTypes = Array.from(typeWrap.querySelectorAll('.quote-card.is-active'));
 
         if (selectedTypes.length === 0) {
-          valueEl.textContent = 'Selecciona una o más opciones arriba';
-          if (timeBadgeEl) timeBadgeEl.textContent = '⏱️ Tiempo estimado: Selecciona un proyecto';
+          valueEl.textContent = (window.currentLang === 'EN') ? 'Select one or more options above' : 'Selecciona una o más opciones arriba';
+          if (timeBadgeEl) timeBadgeEl.textContent = (window.currentLang === 'EN') ? '⏱️ Estimated time: Select a project' : '⏱️ Tiempo estimado: Selecciona un proyecto';
           if (bundleBadgeEl) bundleBadgeEl.style.display = 'none';
-          if (summaryEl) summaryEl.textContent = 'Elige uno o varios tipos de proyecto para calcular la cotización estimada en tiempo real.';
+          if (summaryEl) summaryEl.textContent = (window.currentLang === 'EN') ? 'Choose one or several project types to calculate real-time estimated quote.' : 'Elige uno o varios tipos de proyecto para calcular la cotización estimada en tiempo real.';
           waBtn.setAttribute('aria-disabled', 'true');
           emailBtn.setAttribute('aria-disabled', 'true');
           return;
@@ -2985,13 +3028,13 @@
 
         if (selectedTypes.length === 2) {
           discountFactor = 0.85; // 15% discount
-          bundleBadgeText = '✨ Combo Ecosistema (-15% de ahorro)';
+          bundleBadgeText = (window.currentLang === 'EN') ? '✨ Ecosystem Combo (-15% Savings)' : '✨ Combo Ecosistema (-15% de ahorro)';
         } else if (selectedTypes.length === 3) {
           discountFactor = 0.80; // 20% discount
-          bundleBadgeText = '✨ Combo Ecosistema (-20% de ahorro)';
+          bundleBadgeText = (window.currentLang === 'EN') ? '✨ Ecosystem Combo (-20% Savings)' : '✨ Combo Ecosistema (-20% de ahorro)';
         } else if (selectedTypes.length >= 4) {
           discountFactor = 0.75; // 25% discount VIP
-          bundleBadgeText = '🔥 Suite Completa Voxel (-25% Descuento VIP)';
+          bundleBadgeText = (window.currentLang === 'EN') ? '🔥 Voxel Full Suite (-25% VIP Discount)' : '🔥 Suite Completa Voxel (-25% Descuento VIP)';
         }
 
         if (bundleBadgeEl) {
@@ -3028,9 +3071,11 @@
         var mainTitle = typeTitles.join(' + ');
 
         // Update UI Text
-        valueEl.textContent = fmt(finalMin) + ' - ' + fmt(finalMax) + ' USD (aprox.)';
+        valueEl.textContent = fmt(finalMin) + ' - ' + fmt(finalMax) + ' (aprox.)';
         if (timeBadgeEl) {
-          timeBadgeEl.textContent = '⏱️ Tiempo estimado: ' + finalTimeMin + ' a ' + finalTimeMax + ' semanas (aprox.)';
+          var timeUnit = (window.currentLang === 'EN') ? 'weeks' : 'semanas';
+          var timePrefix = (window.currentLang === 'EN') ? '⏱️ Estimated time: ' : '⏱️ Tiempo estimado: ';
+          timeBadgeEl.textContent = timePrefix + finalTimeMin + ' a ' + finalTimeMax + ' ' + timeUnit + ' (aprox.)';
         }
 
         var summaryText = 'Ficha: ' + mainTitle + ' | Alcance: ' + compName + (extraNames.length ? ' | Módulos: ' + extraNames.join(', ') : '');
@@ -3041,22 +3086,25 @@
         emailBtn.removeAttribute('aria-disabled');
 
         // Store pre-formatted text payload for WhatsApp / Email
+        var isEn = (window.currentLang === 'EN');
         var formattedMessage = [
-          '📋 *COTIZACIÓN DE PROYECTO (APROXIMADA) - VOXEL LAB*',
-          '• *Servicios seleccionados:* ' + mainTitle,
-          bundleBadgeText ? ('• *Beneficio:* ' + bundleBadgeText) : null,
-          '• *Alcance:* ' + compName,
-          extraNames.length ? ('• *Módulos adicionales:* ' + extraNames.join(', ')) : null,
-          '• *Inversión estimada:* ' + fmt(finalMin) + ' - ' + fmt(finalMax) + ' USD (aprox.)',
-          '• *Tiempo estimado:* ' + finalTimeMin + ' a ' + finalTimeMax + ' semanas (aprox.)',
+          isEn ? '📋 *PROJECT ESTIMATE (APPROX) - VOXEL LAB*' : '📋 *COTIZACIÓN DE PROYECTO (APROXIMADA) - VOXEL LAB*',
+          (isEn ? '• *Selected services:* ' : '• *Servicios seleccionados:* ') + mainTitle,
+          bundleBadgeText ? ((isEn ? '• *Benefit:* ' : '• *Beneficio:* ') + bundleBadgeText) : null,
+          (isEn ? '• *Scope:* ' : '• *Alcance:* ') + compName,
+          extraNames.length ? ((isEn ? '• *Additional modules:* ' : '• *Módulos adicionales:* ') + extraNames.join(', ')) : null,
+          (isEn ? '• *Estimated investment:* ' : '• *Inversión estimada:* ') + fmt(finalMin) + ' - ' + fmt(finalMax) + ' (aprox.)',
+          (isEn ? '• *Estimated timeline:* ' : '• *Tiempo estimado:* ') + finalTimeMin + ' a ' + finalTimeMax + (isEn ? ' weeks (approx.)' : ' semanas (aprox.)'),
           '',
-          '*Nota:* Estimado orientativo aproximado sujeto al alcance técnico definitivo.'
+          isEn ? '*Note:* Orientative estimate subject to final technical scope.' : '*Nota:* Estimado orientativo aproximado sujeto al alcance técnico definitivo.'
         ].filter(Boolean).join('\n');
 
         waBtn.dataset.payload = formattedMessage;
         emailBtn.dataset.payload = formattedMessage;
-        emailBtn.dataset.subject = 'Cotización de Proyecto: ' + mainTitle;
+        emailBtn.dataset.subject = (isEn ? 'Project Estimate: ' : 'Cotización de Proyecto: ') + mainTitle;
       }
+
+      window.recalcQuote = recalc;
 
       // Handler for Type Cards (Multi-Select toggle)
       typeWrap.querySelectorAll('.quote-card').forEach(function (card) {
@@ -3269,13 +3317,13 @@
       var ticket = parseInt(ticketEl.value, 10) || 80;
 
       if (visValEl) visValEl.textContent = visitors.toLocaleString('en-US') + ' personas';
-      if (tickValEl) tickValEl.textContent = '$' + ticket + ' USD';
+      if (tickValEl) tickValEl.textContent = window.formatMoney(ticket);
 
       var loss = Math.round(visitors * 0.12 * ticket * 0.35);
       var gain = Math.round(visitors * 0.22 * ticket * 0.40);
 
-      if (lossEl) lossEl.textContent = '-$' + loss.toLocaleString('en-US') + ' USD';
-      if (gainEl) gainEl.textContent = '+$' + gain.toLocaleString('en-US') + ' USD';
+      if (lossEl) lossEl.textContent = '-' + window.formatMoney(loss);
+      if (gainEl) gainEl.textContent = '+' + window.formatMoney(gain);
     };
 
     // ---- 4. Portfolio Filter Logic ----
@@ -3293,6 +3341,134 @@
         }
       });
     };
+
+    // ---- 5. Multilingual (ES / EN) & Dynamic Currency (USD / COP) Engine ----
+    var USD_TO_COP = 3500; // Tasa acordada: 1 USD = 3,500 COP
+
+    var savedLang = localStorage.getItem('voxel_lang');
+    var savedCurr = localStorage.getItem('voxel_curr');
+
+    var isColombia = (function () {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        var lang = navigator.language || '';
+        return (tz.indexOf('Bogota') !== -1 || lang.indexOf('es-CO') !== -1);
+      } catch (e) { return false; }
+    })();
+
+    var isEnglish = (function () {
+      try {
+        var lang = navigator.language || '';
+        return (lang.indexOf('en') === 0);
+      } catch (e) { return false; }
+    })();
+
+    window.currentLang = savedLang || (isEnglish ? 'EN' : 'ES');
+    window.currentCurr = savedCurr || (isColombia ? 'COP' : 'USD');
+
+    window.formatMoney = function (amountUSD) {
+      if (window.currentCurr === 'COP') {
+        var valCOP = Math.round(amountUSD * USD_TO_COP);
+        return '$' + valCOP.toLocaleString('es-CO') + ' COP';
+      } else {
+        var valUSD = Math.round(amountUSD);
+        return '$' + valUSD.toLocaleString('en-US') + ' USD';
+      }
+    };
+
+    window.updateCurrencyUI = function () {
+      var currBtn = document.getElementById('currToggleBtn');
+      if (currBtn) {
+        currBtn.textContent = window.currentCurr;
+        currBtn.classList.toggle('is-active', window.currentCurr === 'COP');
+      }
+
+      // Update price badges in Step 1 cards
+      document.querySelectorAll('.quote-card').forEach(function (card) {
+        var badge = card.querySelector('.quote-card-price-tag');
+        var min = parseFloat(card.dataset.min) || 0;
+        if (badge && min) {
+          var prefix = (window.currentLang === 'EN') ? 'From ' : 'Desde ';
+          badge.textContent = prefix + window.formatMoney(min);
+        }
+      });
+
+      // Update extra chips price badges in Step 2
+      document.querySelectorAll('.quote-extra-chip').forEach(function (chip) {
+        var badge = chip.querySelector('.quote-extra-badge');
+        var add = parseFloat(chip.dataset.add) || 0;
+        if (badge && add) {
+          badge.textContent = '+' + window.formatMoney(add);
+        }
+      });
+
+      if (typeof window.recalcQuote === 'function') window.recalcQuote();
+      if (typeof window.recalcROI === 'function') window.recalcROI();
+    };
+
+    window.toggleCurrency = function () {
+      window.currentCurr = (window.currentCurr === 'USD') ? 'COP' : 'USD';
+      localStorage.setItem('voxel_curr', window.currentCurr);
+      window.updateCurrencyUI();
+    };
+
+    window.toggleLanguage = function () {
+      window.currentLang = (window.currentLang === 'ES') ? 'EN' : 'ES';
+      localStorage.setItem('voxel_lang', window.currentLang);
+      window.updateLanguageUI();
+    };
+
+    window.updateLanguageUI = function () {
+      var langBtn = document.getElementById('langToggleBtn');
+      if (langBtn) {
+        langBtn.textContent = window.currentLang;
+        langBtn.classList.toggle('is-active', window.currentLang === 'EN');
+      }
+
+      // Dynamic text dictionary for translation
+      var dict = {
+        ES: {
+          nav_services: 'Servicios',
+          nav_portfolio: 'Portafolio',
+          nav_quote: 'Cotizar',
+          nav_process: 'Proceso',
+          nav_faq: 'Preguntas',
+          nav_audit: 'Auditoría gratis',
+          hero_eyebrow: 'Soluciones digitales · Voxel Lab',
+          hero_h1: 'Tecnología que <em>vende, automatiza y escala</em> tu negocio',
+          hero_sub: 'Webs, apps, automatizaciones y software a medida con IA — todo bajo una sola arquitectura, para que tu negocio funcione incluso cuando tú no estás.',
+          hero_cta1: 'Quiero mi auditoría gratis',
+          hero_cta2: 'Ver qué construimos'
+        },
+        EN: {
+          nav_services: 'Services',
+          nav_portfolio: 'Portfolio',
+          nav_quote: 'Quote',
+          nav_process: 'Process',
+          nav_faq: 'FAQ',
+          nav_audit: 'Free Audit',
+          hero_eyebrow: 'Digital Solutions · Voxel Lab',
+          hero_h1: 'Technology that <em>sells, automates & scales</em> your business',
+          hero_sub: 'Websites, apps, automation & custom AI software — all under a unified architecture, so your business operates 24/7 even when you are away.',
+          hero_cta1: 'Get my free audit',
+          hero_cta2: 'Explore solutions'
+        }
+      };
+
+      var t = dict[window.currentLang] || dict.ES;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.dataset.i18n;
+        if (t[key]) el.innerHTML = t[key];
+      });
+
+      if (typeof window.recalcQuote === 'function') window.recalcQuote();
+    };
+
+    // Run UI initialization on load
+    setTimeout(function () {
+      window.updateCurrencyUI();
+      window.updateLanguageUI();
+    }, 80);
   })();
 </script>
 </div>
