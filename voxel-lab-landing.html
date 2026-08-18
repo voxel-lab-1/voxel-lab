@@ -519,6 +519,58 @@
     .globe-inner { animation: none; }
   }
 
+  /* ---------- contact channels ---------- */
+  .contact-channels {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .contact-channel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-raised);
+    text-decoration: none;
+    color: var(--ink);
+    text-align: left;
+  }
+  .contact-channel-icon { font-size: 1.3rem; flex: none; }
+  .contact-channel-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .contact-channel-label {
+    font-family: "JetBrainsMonoVL", ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .contact-channel-value {
+    font-family: "GeneralSansVL", sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+  .contact-channel-value.is-placeholder {
+    color: #E0A54A;
+    font-family: "JetBrainsMonoVL", ui-monospace, monospace;
+    font-size: 0.72rem;
+    border: 1px dashed #E0A54A;
+    border-radius: 6px;
+    padding: 3px 8px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .contact-channel--social { cursor: default; }
+  .contact-channel-social-list { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .contact-channel-social-list a.contact-channel-value { text-decoration: underline; }
+  @media (max-width: 780px) {
+    .contact-channels { grid-template-columns: 1fr; }
+  }
+
   /* ---------- footer ---------- */
   footer {
     padding: 40px 0 120px;
@@ -1042,6 +1094,86 @@
   @media (max-width: 980px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .portfolio-grid { grid-template-columns: 1fr; } }
 
+  /* ---------- quote calculator ---------- */
+  .quote-box {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 36px;
+    box-shadow: var(--shadow);
+  }
+  .quote-field { margin-bottom: 28px; }
+  .quote-label {
+    font-family: "JetBrainsMonoVL", ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  .quote-options { display: flex; flex-wrap: wrap; gap: 10px; }
+  .quote-chip {
+    font-family: "GeneralSansVL", sans-serif;
+    font-size: 0.88rem;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .quote-chip:hover { border-color: var(--violet); color: var(--ink); }
+  .quote-chip.is-active {
+    background: var(--violet);
+    border-color: var(--violet);
+    color: var(--violet-ink);
+    font-weight: 700;
+  }
+  .quote-result {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .quote-result-label {
+    font-family: "JetBrainsMonoVL", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+  .quote-result-value {
+    font-family: "FrauncesVL", serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .quote-result-note {
+    font-family: "GeneralSansVL", sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+  .quote-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .quote-action-btn[aria-disabled="true"] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .quote-placeholder-note {
+    margin: 18px 0 0;
+    text-align: center;
+    font-family: "JetBrainsMonoVL", ui-monospace, monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+  @media (max-width: 640px) {
+    .quote-box { padding: 24px 20px; }
+    .quote-result-value { font-size: 1.6rem; }
+  }
+
   /* ---------- faq ---------- */
   .faq-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
   .faq-list details { background: var(--bg-raised); }
@@ -1279,6 +1411,7 @@
     <nav class="links">
       <a href="#servicios">Servicios</a>
       <a href="#portafolio">Portafolio</a>
+      <a href="#cotizador">Cotizar</a>
       <a href="#proceso">Proceso</a>
       <a href="#faq">Preguntas</a>
     </nav>
@@ -1293,6 +1426,7 @@
     <nav class="mobile-drawer" id="mobileDrawer">
       <a href="#servicios">Servicios</a>
       <a href="#portafolio">Portafolio</a>
+      <a href="#cotizador">Cotizar</a>
       <a href="#proceso">Proceso</a>
       <a href="#faq">Preguntas</a>
       <a href="#contacto">Auditoría gratis</a>
@@ -1694,6 +1828,47 @@
     </div>
   </section>
 
+  <section id="cotizador">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Cotiza tu proyecto</span>
+        <h2>¿Cuánto cuesta lo que necesitas?</h2>
+        <p>Arma tu proyecto en unos clics y recibe un estimado al instante — sin tener que escribirnos primero.</p>
+      </div>
+      <div class="quote-box reveal">
+        <div class="quote-field">
+          <div class="quote-label">1. Tipo de proyecto</div>
+          <div class="quote-options" id="quoteType">
+            <button type="button" class="quote-chip" data-min="400" data-max="800">Página web</button>
+            <button type="button" class="quote-chip" data-min="1200" data-max="2200">App / Web App</button>
+            <button type="button" class="quote-chip" data-min="600" data-max="1100">Automatización</button>
+            <button type="button" class="quote-chip" data-min="1500" data-max="3000">Software a medida con IA</button>
+          </div>
+        </div>
+        <div class="quote-field">
+          <div class="quote-label">2. Extras (opcional)</div>
+          <div class="quote-options" id="quoteExtras">
+            <button type="button" class="quote-chip" data-add="200">Pagos en línea</button>
+            <button type="button" class="quote-chip" data-add="300">Panel de administración</button>
+            <button type="button" class="quote-chip" data-add="250">Diseño 100% a medida</button>
+            <button type="button" class="quote-chip" data-add="200">Automatización de WhatsApp</button>
+            <button type="button" class="quote-chip" data-add="150">Multilenguaje</button>
+          </div>
+        </div>
+        <div class="quote-result">
+          <div class="quote-result-label">Estimado orientativo</div>
+          <div class="quote-result-value" id="quoteValue">Elige un tipo de proyecto arriba</div>
+          <div class="quote-result-note">El precio final depende del alcance exacto de tu proyecto — esto es solo un punto de partida para conversar.</div>
+        </div>
+        <div class="quote-actions">
+          <a class="btn btn-primary quote-action-btn" id="quoteWhatsappBtn" href="https://wa.me/00000000000" target="_blank" rel="noopener" aria-disabled="true">Enviar por WhatsApp</a>
+          <a class="btn btn-ghost quote-action-btn" id="quoteEmailBtn" href="mailto:correo@ejemplo.com" aria-disabled="true">Enviar por correo</a>
+        </div>
+        <p class="quote-placeholder-note">* Los botones de arriba usan datos de contacto de ejemplo (número de WhatsApp y correo). Se reemplazan por los reales cuando nos los envíes.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="resultados">
     <div class="wrap">
       <div class="proof reveal">
@@ -1759,6 +1934,32 @@
           </div>
         </div>
         <span>Atendemos por WhatsApp desde cualquier lugar, a la hora que nos escribas.</span>
+      </div>
+      <div class="contact-channels reveal">
+        <a class="contact-channel" href="https://wa.me/00000000000" target="_blank" rel="noopener">
+          <span class="contact-channel-icon">&#128172;</span>
+          <span class="contact-channel-text">
+            <span class="contact-channel-label">WhatsApp</span>
+            <span class="contact-channel-value is-placeholder">Pendiente: tu número</span>
+          </span>
+        </a>
+        <a class="contact-channel" href="mailto:correo@ejemplo.com">
+          <span class="contact-channel-icon">&#9993;&#65039;</span>
+          <span class="contact-channel-text">
+            <span class="contact-channel-label">Correo</span>
+            <span class="contact-channel-value is-placeholder">Pendiente: tu correo</span>
+          </span>
+        </a>
+        <div class="contact-channel contact-channel--social">
+          <span class="contact-channel-icon">&#128247;</span>
+          <span class="contact-channel-text">
+            <span class="contact-channel-label">Redes</span>
+            <span class="contact-channel-social-list">
+              <a href="https://www.instagram.com/voxel.lab1/" target="_blank" rel="noopener" class="contact-channel-value">Instagram</a>
+              <span class="contact-channel-value is-placeholder">+ Pendiente: 2da red</span>
+            </span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -1888,6 +2089,75 @@
         if (svg.pauseAnimations) svg.pauseAnimations();
       });
     }
+
+    // ---- quote calculator ----
+    (function () {
+      var typeWrap = document.getElementById('quoteType');
+      var extrasWrap = document.getElementById('quoteExtras');
+      var valueEl = document.getElementById('quoteValue');
+      var waBtn = document.getElementById('quoteWhatsappBtn');
+      var emailBtn = document.getElementById('quoteEmailBtn');
+      if (!typeWrap || !extrasWrap || !valueEl) return;
+
+      var selectedType = null;
+      var selectedExtras = [];
+      var fmt = function (n) { return '$' + n.toLocaleString('en-US'); };
+
+      function recalc() {
+        if (!selectedType) {
+          valueEl.textContent = 'Elige un tipo de proyecto arriba';
+          waBtn.setAttribute('aria-disabled', 'true');
+          emailBtn.setAttribute('aria-disabled', 'true');
+          return;
+        }
+        var min = parseInt(selectedType.dataset.min, 10);
+        var max = parseInt(selectedType.dataset.max, 10);
+        var extrasTotal = 0;
+        var extraNames = [];
+        selectedExtras.forEach(function (chip) {
+          extrasTotal += parseInt(chip.dataset.add, 10);
+          extraNames.push(chip.textContent.trim());
+        });
+        min += extrasTotal;
+        max += extrasTotal;
+        valueEl.textContent = fmt(min) + ' - ' + fmt(max) + ' USD';
+
+        var typeName = selectedType.textContent.trim();
+        var summaryLines = [
+          'Hola, me interesa cotizar un proyecto:',
+          '- Tipo: ' + typeName,
+          extraNames.length ? ('- Extras: ' + extraNames.join(', ')) : null,
+          '- Estimado: ' + fmt(min) + ' - ' + fmt(max) + ' USD'
+        ].filter(Boolean);
+        var summary = summaryLines.join('\n');
+
+        waBtn.href = 'https://wa.me/00000000000?text=' + encodeURIComponent(summary);
+        emailBtn.href = 'mailto:correo@ejemplo.com?subject=' + encodeURIComponent('Cotización: ' + typeName) + '&body=' + encodeURIComponent(summary);
+        waBtn.removeAttribute('aria-disabled');
+        emailBtn.removeAttribute('aria-disabled');
+      }
+
+      typeWrap.querySelectorAll('.quote-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          typeWrap.querySelectorAll('.quote-chip').forEach(function (c) { c.classList.remove('is-active'); });
+          chip.classList.add('is-active');
+          selectedType = chip;
+          recalc();
+        });
+      });
+
+      extrasWrap.querySelectorAll('.quote-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          chip.classList.toggle('is-active');
+          if (chip.classList.contains('is-active')) {
+            selectedExtras.push(chip);
+          } else {
+            selectedExtras = selectedExtras.filter(function (c) { return c !== chip; });
+          }
+          recalc();
+        });
+      });
+    })();
 
     // ---- interactive automation flow ----
     var flowInfo = document.getElementById('flowInfo');
