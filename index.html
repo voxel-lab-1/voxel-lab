@@ -1209,14 +1209,14 @@
   }
   .quote-card:hover {
     background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(154, 130, 255, 0.4);
+    border-color: rgba(36, 216, 255, 0.4);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(154, 130, 255, 0.15);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(36, 216, 255, 0.18);
   }
   .quote-card.is-active {
-    background: linear-gradient(135deg, rgba(154, 130, 255, 0.16) 0%, rgba(20, 23, 28, 0.8) 100%);
-    border-color: var(--violet);
-    box-shadow: 0 0 20px rgba(154, 130, 255, 0.25), inset 0 0 15px rgba(154, 130, 255, 0.1);
+    background: linear-gradient(135deg, rgba(36, 216, 255, 0.16) 0%, rgba(20, 23, 28, 0.85) 100%);
+    border-color: var(--cyan);
+    box-shadow: 0 0 22px rgba(36, 216, 255, 0.3), inset 0 0 15px rgba(36, 216, 255, 0.15);
   }
   .quote-card-header {
     display: flex;
@@ -1232,15 +1232,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--violet);
+    color: var(--ink-soft);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.2s ease;
   }
   .quote-card.is-active .quote-card-icon {
-    background: var(--violet);
+    background: var(--cyan);
     color: #090b14;
-    border-color: var(--violet);
-    box-shadow: 0 0 12px rgba(154, 130, 255, 0.5);
+    border-color: var(--cyan);
+    box-shadow: 0 0 14px rgba(36, 216, 255, 0.6);
   }
   .quote-card-check {
     width: 18px;
@@ -1253,8 +1253,8 @@
     transition: all 0.2s ease;
   }
   .quote-card.is-active .quote-card-check {
-    background: var(--violet);
-    border-color: var(--violet);
+    background: var(--cyan);
+    border-color: var(--cyan);
   }
   .quote-card.is-active .quote-card-check::after {
     content: "✓";
@@ -1278,7 +1278,7 @@
   .quote-card-price-tag {
     font-family: "JetBrainsMonoVL", monospace;
     font-size: 0.75rem;
-    color: #A78BFA;
+    color: #FFFFFF;
     margin-top: 10px;
     font-weight: 600;
   }
@@ -1311,30 +1311,35 @@
     transition: all 0.2s ease;
   }
   .quote-extra-chip:hover {
-    border-color: rgba(154, 130, 255, 0.4);
+    border-color: rgba(36, 216, 255, 0.4);
     color: var(--ink);
     background: rgba(255, 255, 255, 0.04);
   }
   .quote-extra-chip.is-active {
-    background: rgba(154, 130, 255, 0.15);
-    border-color: var(--violet);
+    background: rgba(36, 216, 255, 0.15);
+    border-color: var(--cyan);
     color: var(--ink);
-    box-shadow: 0 0 15px rgba(154, 130, 255, 0.2);
+    box-shadow: 0 0 18px rgba(36, 216, 255, 0.25);
   }
   .quote-extra-badge {
     font-family: "JetBrainsMonoVL", monospace;
     font-size: 0.72rem;
-    color: #A78BFA;
-    background: rgba(154, 130, 255, 0.1);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.06);
     padding: 2px 6px;
     border-radius: 4px;
-    border: 1px solid rgba(154, 130, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .quote-extra-chip.is-active .quote-extra-badge {
+    background: rgba(36, 216, 255, 0.15);
+    border-color: rgba(36, 216, 255, 0.35);
+    color: #FFFFFF;
   }
 
   /* Result Box Cyber Glow */
   .quote-result {
-    background: radial-gradient(circle at top center, rgba(154, 130, 255, 0.08) 0%, rgba(15, 18, 36, 0.5) 100%);
-    border: 1px solid rgba(154, 130, 255, 0.2);
+    background: radial-gradient(circle at top center, rgba(36, 216, 255, 0.08) 0%, rgba(15, 18, 36, 0.5) 100%);
+    border: 1px solid rgba(36, 216, 255, 0.2);
     border-radius: 16px;
     padding: 28px;
     margin-bottom: 24px;
@@ -1363,9 +1368,9 @@
   .quote-result-time-badge {
     font-family: "JetBrainsMonoVL", monospace;
     font-size: 0.75rem;
-    color: #A78BFA;
-    background: rgba(154, 130, 255, 0.12);
-    border: 1px solid rgba(154, 130, 255, 0.25);
+    color: #FFFFFF;
+    background: rgba(36, 216, 255, 0.12);
+    border: 1px solid rgba(36, 216, 255, 0.25);
     padding: 4px 12px;
     border-radius: 20px;
   }
@@ -1376,7 +1381,7 @@
     color: #FFFFFF;
     margin: 10px 0;
     letter-spacing: -0.02em;
-    text-shadow: 0 0 25px rgba(154, 130, 255, 0.25);
+    text-shadow: 0 0 25px rgba(36, 216, 255, 0.35);
   }
   .quote-result-summary {
     font-family: "GeneralSansVL", sans-serif;
