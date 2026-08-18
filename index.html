@@ -1419,9 +1419,9 @@
     .quote-complexity-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
-    .quote-box { padding: 24px 18px; }
-    .quote-cards-grid { grid-template-columns: 1fr; }
-    .quote-result-value { font-size: 1.7rem; }
+    .quote-box { padding: 24px 16px; }
+    .quote-cards-grid, .quote-extras-grid { grid-template-columns: 1fr; }
+    .quote-result-value { font-size: 1.6rem; }
     .quote-trust-bar { flex-direction: column; gap: 10px; align-items: center; }
   }
 
@@ -2434,13 +2434,12 @@
 
     var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ---- scale full-page previews to fit their box ----
+    // ---- scale full-page previews to fit their box exactly ----
     function fitShots() {
       document.querySelectorAll('.site-shot').forEach(function (shot) {
         var frame = shot.querySelector('.site-shot-frame');
         if (!frame) return;
         var designWidth = parseFloat(frame.getAttribute('data-design-width')) || 1400;
-        if (shot.clientWidth < 520) designWidth = designWidth * 0.55;
         var scale = shot.clientWidth / designWidth;
         frame.style.transform = 'scale(' + scale + ')';
       });
