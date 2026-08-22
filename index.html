@@ -2279,7 +2279,7 @@
     .thumb-floating-btn { bottom: 16px; right: 16px; }
   }
 
-  /* 2. Carrete de Actividad en Vivo (Ticker Carousel) */
+  /* 2. Carrete de Actividad en Vivo (Ticker Carousel anti-solapamiento iOS) */
   .ticker-box {
     background: linear-gradient(135deg, rgba(20,23,28,0.88) 0%, rgba(11,13,17,0.92) 100%);
     border: 1px solid var(--line-strong);
@@ -2296,44 +2296,61 @@
     overflow: hidden;
     position: relative;
     white-space: nowrap;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
   }
   .ticker-track {
-    display: inline-flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 40px;
-    width: max-content;
+    display: inline-block;
     white-space: nowrap;
+    width: max-content;
     will-change: transform;
-    animation: tickerMove 25s linear infinite;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-animation: tickerMove 28s linear infinite;
+    animation: tickerMove 28s linear infinite;
   }
-  .ticker-track:hover { animation-play-state: paused; }
+  .ticker-track:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+  @-webkit-keyframes tickerMove {
+    0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+    100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+  }
   @keyframes tickerMove {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
+    0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+    100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
   }
   .ticker-item {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 48px;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.83rem;
+    font-weight: 500;
     color: var(--ink);
     white-space: nowrap;
-    flex-shrink: 0;
-    line-height: 1.2;
+    line-height: 1.4;
   }
   .ticker-item .t-icon {
-    font-size: 1.1rem;
-    flex-shrink: 0;
+    font-size: 1.05rem;
     display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .ticker-item span[data-i18n] {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
   }
   @media (max-width: 600px) {
     .ticker-box { padding: 12px; }
-    .ticker-item { font-size: 0.8rem; gap: 6px; }
+    .ticker-item { font-size: 0.78rem; padding-right: 36px; }
+    .ticker-item .t-icon { font-size: 0.95rem; margin-right: 6px; }
   }
 
   /* 3. Portfolio Preview Modal */
