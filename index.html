@@ -2279,17 +2279,19 @@
     .thumb-floating-btn { bottom: 16px; right: 16px; }
   }
 
-  /* 2. Carrete de Actividad en Vivo (Ticker Carousel justo antes de FAQ) */
+  /* 2. Carrete de Actividad en Vivo (Ticker Carousel justo DESPUÉS de FAQ) */
   .ticker-box {
-    background: linear-gradient(135deg, rgba(20,23,28,0.85) 0%, rgba(11,13,17,0.9) 100%);
+    background: linear-gradient(135deg, rgba(20,23,28,0.88) 0%, rgba(11,13,17,0.92) 100%);
     border: 1px solid var(--line-strong);
     border-radius: 16px;
-    padding: 12px 20px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
   .ticker-header-badge {
     display: flex;
@@ -2315,17 +2317,19 @@
   }
   .ticker-track-wrap {
     flex: 1;
+    min-width: 0;
     overflow: hidden;
     position: relative;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
   }
   .ticker-track {
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 40px;
+    gap: 36px;
     width: max-content;
-    animation: tickerMove 28s linear infinite;
+    animation: tickerMove 26s linear infinite;
   }
   .ticker-track:hover { animation-play-state: paused; }
   @keyframes tickerMove {
@@ -2333,17 +2337,19 @@
     100% { transform: translateX(-50%); }
   }
   .ticker-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.83rem;
+    font-size: 0.82rem;
     color: var(--ink);
     white-space: nowrap;
+    flex-shrink: 0;
   }
   .ticker-item .t-icon { font-size: 1.05rem; }
-  @media (max-width: 680px) {
-    .ticker-box { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; }
-    .ticker-track-wrap { width: 100%; }
+  @media (max-width: 600px) {
+    .ticker-box { padding: 10px 12px; gap: 10px; }
+    .ticker-header-badge { font-size: 0.65rem; padding: 4px 8px; }
+    .ticker-item { font-size: 0.76rem; gap: 6px; }
   }
 
   /* 3. Portfolio Preview Modal */
@@ -3132,31 +3138,6 @@
     </div>
   </section>
 
-  <!-- ⚡ MARQUEE CAROUSEL DE ACTIVIDAD EN VIVO (JUSTO ANTES DE FAQ) -->
-  <section class="ticker-section" id="tickerSection" style="padding: 10px 0 35px;">
-    <div class="wrap">
-      <div class="ticker-box">
-        <div class="ticker-header-badge">
-          <span class="pulse-dot"></span>
-          <b data-i18n="ticker_badge">ACTIVIDAD EN VIVO</b>
-        </div>
-        <div class="ticker-track-wrap">
-          <div class="ticker-track">
-            <div class="ticker-item"><span class="t-icon">⚡</span> <span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
-            <div class="ticker-item"><span class="t-icon">📈</span> <span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
-            <div class="ticker-item"><span class="t-icon">🚀</span> <span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
-            <div class="ticker-item"><span class="t-icon">💬</span> <span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
-            <!-- Duplicado para ciclo continuo -->
-            <div class="ticker-item"><span class="t-icon">⚡</span> <span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
-            <div class="ticker-item"><span class="t-icon">📈</span> <span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
-            <div class="ticker-item"><span class="t-icon">🚀</span> <span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
-            <div class="ticker-item"><span class="t-icon">💬</span> <span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="faq">
     <div class="wrap">
       <div class="section-head reveal">
@@ -3188,6 +3169,31 @@
           <summary><span data-i18n="faq_q6">¿Mi sitio quedará optimizado para aparecer en Google y cargar rápido en celulares?</span> <span class="plus">+</span></summary>
           <p class="faq-a" data-i18n="faq_a6">Sí. Desarrollamos con arquitectura mobile-first pensada para la zona del pulgar y optimizada para lograr 90 a 100/100 en Google Lighthouse, garantizando máxima velocidad y posicionamiento.</p>
         </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚡ MARQUEE CAROUSEL DE ACTIVIDAD EN VIVO (UBICADO DESPUÉS DE FAQ) -->
+  <section class="ticker-section" id="tickerSection" style="padding: 20px 0 40px;">
+    <div class="wrap">
+      <div class="ticker-box">
+        <div class="ticker-header-badge">
+          <span class="pulse-dot"></span>
+          <b data-i18n="ticker_badge">ACTIVIDAD EN VIVO</b>
+        </div>
+        <div class="ticker-track-wrap">
+          <div class="ticker-track">
+            <div class="ticker-item"><span class="t-icon">⚡</span> <span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
+            <div class="ticker-item"><span class="t-icon">📈</span> <span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
+            <div class="ticker-item"><span class="t-icon">🚀</span> <span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
+            <div class="ticker-item"><span class="t-icon">💬</span> <span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
+            <!-- Duplicado para ciclo continuo sin saltos -->
+            <div class="ticker-item"><span class="t-icon">⚡</span> <span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
+            <div class="ticker-item"><span class="t-icon">📈</span> <span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
+            <div class="ticker-item"><span class="t-icon">🚀</span> <span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
+            <div class="ticker-item"><span class="t-icon">💬</span> <span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
