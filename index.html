@@ -2279,53 +2279,52 @@
     .thumb-floating-btn { bottom: 16px; right: 16px; }
   }
 
-  /* 2. Carrete Nativo de Actividad en Vivo (JS Scroll sin animaciones CSS) */
-  .ticker-box {
-    background: linear-gradient(135deg, rgba(20,23,28,0.9) 0%, rgba(11,13,17,0.95) 100%);
+  /* 2. Actividad en Vivo: Tarjeta Elegante de Transición Suave (Fade & Slide) */
+  .ticker-card-box {
+    background: linear-gradient(135deg, rgba(20,23,28,0.92) 0%, rgba(11,13,17,0.96) 100%);
     border: 1px solid var(--line-strong);
     border-radius: 16px;
-    padding: 14px 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    overflow: hidden;
+    padding: 16px 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 54px;
     width: 100%;
     box-sizing: border-box;
+    overflow: hidden;
   }
-  .ticker-native-scroll {
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-  }
-  .ticker-content-inner {
-    display: inline-block;
-    white-space: nowrap;
-  }
-  .t-item {
-    display: inline;
+  .ticker-live-card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 0.83rem;
+    font-size: 0.88rem;
     font-weight: 500;
     color: var(--ink);
+    line-height: 1.35;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 1;
+    transform: translateY(0);
   }
-  .t-icon {
-    font-style: normal;
-    font-size: 0.95rem;
-    margin-right: 6px;
+  .ticker-live-card.is-changing {
+    opacity: 0;
+    transform: translateY(-8px);
   }
-  .t-sep {
-    display: inline-block;
-    margin: 0 24px;
-    color: var(--cyan);
-    opacity: 0.6;
-    font-weight: 700;
+  .t-card-icon {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .t-card-text {
+    color: var(--ink);
   }
   @media (max-width: 600px) {
-    .ticker-box { padding: 12px; }
-    .t-item { font-size: 0.78rem; }
-    .t-sep { margin: 0 16px; }
+    .ticker-card-box { padding: 14px 16px; min-height: 50px; }
+    .ticker-live-card { font-size: 0.8rem; gap: 8px; }
+    .t-card-icon { font-size: 1.05rem; }
   }
 
   /* 3. Portfolio Preview Modal */
@@ -3149,24 +3148,16 @@
     </div>
   </section>
 
-  <!-- ⚡ CARRETE NATIVO DE ACTIVIDAD EN VIVO (DESPUÉS DE FAQ) -->
+  <!-- ⚡ NOTIFICACIÓN DE ACTIVIDAD EN VIVO EN TIEMPO REAL (DESPUÉS DE FAQ) -->
   <section class="ticker-section" id="tickerSection" style="padding: 10px 0 35px;">
     <div class="wrap">
       <div style="text-align: center; margin-bottom: 12px;">
         <span class="eyebrow" data-i18n="ticker_eyebrow">🟢 Actividad en Vivo</span>
       </div>
-      <div class="ticker-box">
-        <div class="ticker-native-scroll" id="tickerNativeScroll">
-          <div class="ticker-content-inner" id="tickerContentInner">
-            <span class="t-item"><i class="t-icon">⚡</i><span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></span>
-            <span class="t-sep">•</span>
-            <span class="t-item"><i class="t-icon">📈</i><span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></span>
-            <span class="t-sep">•</span>
-            <span class="t-item"><i class="t-icon">🚀</i><span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></span>
-            <span class="t-sep">•</span>
-            <span class="t-item"><i class="t-icon">💬</i><span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></span>
-            <span class="t-sep">•</span>
-          </div>
+      <div class="ticker-card-box" id="tickerCardBox">
+        <div class="ticker-live-card" id="tickerLiveCard">
+          <span class="t-card-icon" id="tickerCardIcon">⚡</span>
+          <span class="t-card-text" id="tickerCardText" data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span>
         </div>
       </div>
     </div>
@@ -4113,36 +4104,39 @@
       if (e.key === 'Escape') window.closePortModal();
     });
 
-    // ---- 4.8. Native JS Continuous Ticker Loop (Zero CSS Keyframe Safari Bugs) ----
-    (function initNativeTicker() {
-      var container = document.getElementById('tickerNativeScroll');
-      var inner = document.getElementById('tickerContentInner');
-      if (!container || !inner) return;
+    // ---- 4.8. Live Activity Fade & Slide Rotation Engine ----
+    (function initLiveActivityRotation() {
+      var liveItems = [
+        { icon: '⚡', key: 't_i1', es: 'Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.', en: 'A business in Bogota audited their site (34/100) and requested optimization.' },
+        { icon: '📈', key: 't_i2', es: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.', en: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.' },
+        { icon: '🚀', key: 't_i3', es: 'Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.', en: 'New E-Commerce launched with 0.4s load speed & 99/100 Google score.' },
+        { icon: '💬', key: 't_i4', es: 'Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.', en: 'Inquiry received from US for Custom AI Software development.' }
+      ];
 
-      var clone = inner.cloneNode(true);
-      clone.removeAttribute('id');
-      container.appendChild(clone);
+      var currentIndex = 0;
+      var cardEl = document.getElementById('tickerLiveCard');
+      var iconEl = document.getElementById('tickerCardIcon');
+      var textEl = document.getElementById('tickerCardText');
 
-      var speed = 0.75;
-      var isPaused = false;
+      if (!cardEl || !iconEl || !textEl) return;
 
-      container.addEventListener('mouseenter', function () { isPaused = true; });
-      container.addEventListener('mouseleave', function () { isPaused = false; });
-      container.addEventListener('touchstart', function () { isPaused = true; }, { passive: true });
-      container.addEventListener('touchend', function () { isPaused = false; }, { passive: true });
+      function rotateItem() {
+        currentIndex = (currentIndex + 1) % liveItems.length;
+        var item = liveItems[currentIndex];
 
-      function step() {
-        if (!isPaused) {
-          container.scrollLeft += speed;
-          var half = inner.offsetWidth;
-          if (half > 0 && container.scrollLeft >= half) {
-            container.scrollLeft -= half;
-          }
-        }
-        requestAnimationFrame(step);
+        cardEl.classList.add('is-changing');
+
+        setTimeout(function () {
+          iconEl.textContent = item.icon;
+          textEl.dataset.i18n = item.key;
+          var langText = (window.currentLang === 'EN') ? item.en : item.es;
+          textEl.textContent = langText;
+
+          cardEl.classList.remove('is-changing');
+        }, 400);
       }
 
-      requestAnimationFrame(step);
+      setInterval(rotateItem, 4200);
     })();
 
     // ---- 5. Multilingual (ES / EN) & Dynamic Currency (USD / COP) Engine ----
