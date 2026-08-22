@@ -2279,9 +2279,9 @@
     .thumb-floating-btn { bottom: 16px; right: 16px; }
   }
 
-  /* 2. Carrete de Actividad en Vivo (Ticker Carousel anti-solapamiento iOS) */
+  /* 2. Carrete Nativo de Actividad en Vivo (JS Scroll sin animaciones CSS) */
   .ticker-box {
-    background: linear-gradient(135deg, rgba(20,23,28,0.88) 0%, rgba(11,13,17,0.92) 100%);
+    background: linear-gradient(135deg, rgba(20,23,28,0.9) 0%, rgba(11,13,17,0.95) 100%);
     border: 1px solid var(--line-strong);
     border-radius: 16px;
     padding: 14px 16px;
@@ -2289,68 +2289,43 @@
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
-    position: relative;
   }
-  .ticker-track-wrap {
+  .ticker-native-scroll {
     width: 100%;
-    overflow: hidden;
-    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
     white-space: nowrap;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 3%, #000 97%, transparent 100%);
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
   }
-  .ticker-track {
+  .ticker-content-inner {
     display: inline-block;
     white-space: nowrap;
-    width: max-content;
-    will-change: transform;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-animation: tickerMove 28s linear infinite;
-    animation: tickerMove 28s linear infinite;
   }
-  .ticker-track:hover {
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
-  }
-  @-webkit-keyframes tickerMove {
-    0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-    100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
-  }
-  @keyframes tickerMove {
-    0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-    100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
-  }
-  .ticker-item {
-    display: inline-block;
-    vertical-align: middle;
-    padding-right: 48px;
+  .t-item {
+    display: inline;
     font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 0.83rem;
     font-weight: 500;
     color: var(--ink);
-    white-space: nowrap;
-    line-height: 1.4;
   }
-  .ticker-item .t-icon {
-    font-size: 1.05rem;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
+  .t-icon {
+    font-style: normal;
+    font-size: 0.95rem;
+    margin-right: 6px;
   }
-  .ticker-item span[data-i18n] {
+  .t-sep {
     display: inline-block;
-    vertical-align: middle;
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
+    margin: 0 24px;
+    color: var(--cyan);
+    opacity: 0.6;
+    font-weight: 700;
   }
   @media (max-width: 600px) {
     .ticker-box { padding: 12px; }
-    .ticker-item { font-size: 0.78rem; padding-right: 36px; }
-    .ticker-item .t-icon { font-size: 0.95rem; margin-right: 6px; }
+    .t-item { font-size: 0.78rem; }
+    .t-sep { margin: 0 16px; }
   }
 
   /* 3. Portfolio Preview Modal */
@@ -3174,24 +3149,23 @@
     </div>
   </section>
 
-  <!-- ⚡ MARQUEE CAROUSEL DE ACTIVIDAD EN VIVO (DESPUÉS DE FAQ) -->
+  <!-- ⚡ CARRETE NATIVO DE ACTIVIDAD EN VIVO (DESPUÉS DE FAQ) -->
   <section class="ticker-section" id="tickerSection" style="padding: 10px 0 35px;">
     <div class="wrap">
       <div style="text-align: center; margin-bottom: 12px;">
         <span class="eyebrow" data-i18n="ticker_eyebrow">🟢 Actividad en Vivo</span>
       </div>
       <div class="ticker-box">
-        <div class="ticker-track-wrap">
-          <div class="ticker-track">
-            <div class="ticker-item"><span class="t-icon">⚡</span><span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
-            <div class="ticker-item"><span class="t-icon">📈</span><span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
-            <div class="ticker-item"><span class="t-icon">🚀</span><span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
-            <div class="ticker-item"><span class="t-icon">💬</span><span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
-            <!-- Duplicado para ciclo continuo sin saltos -->
-            <div class="ticker-item"><span class="t-icon">⚡</span><span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></div>
-            <div class="ticker-item"><span class="t-icon">📈</span><span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></div>
-            <div class="ticker-item"><span class="t-icon">🚀</span><span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></div>
-            <div class="ticker-item"><span class="t-icon">💬</span><span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></div>
+        <div class="ticker-native-scroll" id="tickerNativeScroll">
+          <div class="ticker-content-inner" id="tickerContentInner">
+            <span class="t-item"><i class="t-icon">⚡</i><span data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span></span>
+            <span class="t-sep">•</span>
+            <span class="t-item"><i class="t-icon">📈</i><span data-i18n="t_i2">Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.</span></span>
+            <span class="t-sep">•</span>
+            <span class="t-item"><i class="t-icon">🚀</i><span data-i18n="t_i3">Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.</span></span>
+            <span class="t-sep">•</span>
+            <span class="t-item"><i class="t-icon">💬</i><span data-i18n="t_i4">Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.</span></span>
+            <span class="t-sep">•</span>
           </div>
         </div>
       </div>
@@ -4138,6 +4112,38 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') window.closePortModal();
     });
+
+    // ---- 4.8. Native JS Continuous Ticker Loop (Zero CSS Keyframe Safari Bugs) ----
+    (function initNativeTicker() {
+      var container = document.getElementById('tickerNativeScroll');
+      var inner = document.getElementById('tickerContentInner');
+      if (!container || !inner) return;
+
+      var clone = inner.cloneNode(true);
+      clone.removeAttribute('id');
+      container.appendChild(clone);
+
+      var speed = 0.75;
+      var isPaused = false;
+
+      container.addEventListener('mouseenter', function () { isPaused = true; });
+      container.addEventListener('mouseleave', function () { isPaused = false; });
+      container.addEventListener('touchstart', function () { isPaused = true; }, { passive: true });
+      container.addEventListener('touchend', function () { isPaused = false; }, { passive: true });
+
+      function step() {
+        if (!isPaused) {
+          container.scrollLeft += speed;
+          var half = inner.offsetWidth;
+          if (half > 0 && container.scrollLeft >= half) {
+            container.scrollLeft -= half;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    })();
 
     // ---- 5. Multilingual (ES / EN) & Dynamic Currency (USD / COP) Engine ----
     var USD_TO_COP = 3500; // Tasa acordada: 1 USD = 3,500 COP
