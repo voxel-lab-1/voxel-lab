@@ -758,8 +758,9 @@
     width: fit-content;
   }
   .contact-channel--social { cursor: default; }
-  .contact-channel-social-list { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
-  .contact-channel-social-list a.contact-channel-value { text-decoration: underline; }
+  .contact-channel-social-list { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+  .contact-channel-social-list a.contact-channel-value { text-decoration: underline; color: var(--ink); font-weight: 500; transition: color 0.2s ease; }
+  .contact-channel-social-list a.contact-channel-value:hover { color: var(--cyan); }
   @media (max-width: 780px) {
     .contact-channels { grid-template-columns: 1fr; }
   }
@@ -3386,27 +3387,20 @@
         <span data-i18n="cta_globe_text">Atendemos por WhatsApp desde cualquier lugar, a la hora que nos escribas.</span>
       </div>
       <div class="contact-channels reveal">
-        <a class="contact-channel" href="https://wa.me/00000000000" target="_blank" rel="noopener">
-          <span class="contact-channel-icon">&#128172;</span>
-          <span class="contact-channel-text">
-            <span class="contact-channel-label">WhatsApp</span>
-            <span class="contact-channel-value is-placeholder">Pendiente: tu número</span>
-          </span>
-        </a>
-        <a class="contact-channel" href="mailto:correo@ejemplo.com">
+        <a class="contact-channel" href="mailto:voxelab1@gmail.com">
           <span class="contact-channel-icon">&#9993;&#65039;</span>
           <span class="contact-channel-text">
             <span class="contact-channel-label" data-i18n="cc_email">Correo</span>
-            <span class="contact-channel-value is-placeholder">Pendiente: tu correo</span>
+            <span class="contact-channel-value">voxelab1@gmail.com</span>
           </span>
         </a>
         <div class="contact-channel contact-channel--social">
-          <span class="contact-channel-icon">&#128247;</span>
           <span class="contact-channel-text">
             <span class="contact-channel-label" data-i18n="cc_social">Redes</span>
             <span class="contact-channel-social-list">
               <a href="https://www.instagram.com/voxel.lab1/" target="_blank" rel="noopener" class="contact-channel-value">Instagram</a>
-              <span class="contact-channel-value is-placeholder">+ Pendiente: 2da red</span>
+              <a href="https://www.facebook.com/share/1CRuGWPun2/" target="_blank" rel="noopener" class="contact-channel-value">Facebook</a>
+              <a href="https://www.tiktok.com/@voxel.lab1" target="_blank" rel="noopener" class="contact-channel-value">TikTok</a>
             </span>
           </span>
         </div>
@@ -3479,9 +3473,6 @@
       &copy; 2026 Voxel Lab &mdash; Soluciones digitales que impulsan tu negocio.
     </div>
     <div class="foot-links">
-      <a href="https://www.instagram.com/voxel.lab1/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.facebook.com/share/1CRuGWPun2/" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://www.tiktok.com/@voxel.lab1" target="_blank" rel="noopener">TikTok</a>
       <a href="#contacto" data-i18n="foot_contact">Contacto</a>
     </div>
   </div>
