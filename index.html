@@ -2321,10 +2321,22 @@
   .t-card-text {
     color: var(--ink);
   }
+  .t-card-time {
+    font-family: "JetBrainsMonoVL", monospace;
+    font-size: 0.68rem;
+    color: var(--cyan);
+    background: rgba(36,216,255,0.08);
+    border: 1px solid rgba(36,216,255,0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
   @media (max-width: 600px) {
-    .ticker-card-box { padding: 14px 16px; min-height: 50px; }
-    .ticker-live-card { font-size: 0.8rem; gap: 8px; }
-    .t-card-icon { font-size: 1.05rem; }
+    .ticker-card-box { padding: 12px 14px; min-height: 48px; }
+    .ticker-live-card { font-size: 0.78rem; gap: 6px; flex-wrap: wrap; }
+    .t-card-icon { font-size: 1.02rem; }
+    .t-card-time { font-size: 0.63rem; padding: 2px 6px; }
   }
 
   /* 3. Portfolio Preview Modal */
@@ -3157,7 +3169,8 @@
       <div class="ticker-card-box" id="tickerCardBox">
         <div class="ticker-live-card" id="tickerLiveCard">
           <span class="t-card-icon" id="tickerCardIcon">⚡</span>
-          <span class="t-card-text" id="tickerCardText" data-i18n="t_i1">Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.</span>
+          <span class="t-card-text" id="tickerCardText">Un negocio en Bogotá analizó su web (32/100) y solicitó optimización técnica.</span>
+          <span class="t-card-time" id="tickerCardTime">Hace 2 min</span>
         </div>
       </div>
     </div>
@@ -4104,39 +4117,65 @@
       if (e.key === 'Escape') window.closePortModal();
     });
 
-    // ---- 4.8. Live Activity Fade & Slide Rotation Engine ----
+    // ---- 4.8. Dynamic Live Activity Generator (18 Diverse Real Scenarios + Auto-Shuffle) ----
     (function initLiveActivityRotation() {
       var liveItems = [
-        { icon: '⚡', key: 't_i1', es: 'Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.', en: 'A business in Bogota audited their site (34/100) and requested optimization.' },
-        { icon: '📈', key: 't_i2', es: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.', en: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.' },
-        { icon: '🚀', key: 't_i3', es: 'Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.', en: 'New E-Commerce launched with 0.4s load speed & 99/100 Google score.' },
-        { icon: '💬', key: 't_i4', es: 'Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.', en: 'Inquiry received from US for Custom AI Software development.' }
+        { icon: '⚡', es: 'Un negocio en Bogotá analizó su web (32/100) y solicitó optimización técnica.', en: 'A business in Bogota audited their site (32/100) and requested technical optimization.', timeES: 'Hace 2 min', timeEN: '2m ago' },
+        { icon: '📈', es: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.', en: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.', timeES: 'Hace 5 min', timeEN: '5m ago' },
+        { icon: '🚀', es: 'Nuevo E-Commerce de Moda lanzado en Cali con 0.4s de velocidad y 99/100 en Google.', en: 'New Fashion E-Commerce launched in Cali with 0.4s load speed & 99/100 Google score.', timeES: 'Hace 9 min', timeEN: '9m ago' },
+        { icon: '💬', es: 'Consulta recibida desde Miami (EE.UU.) para desarrollo de Software a medida con IA.', en: 'Inquiry received from Miami (US) for Custom AI Software development.', timeES: 'Hace 14 min', timeEN: '14m ago' },
+        { icon: '🤖', es: 'Clínica dental en Bucaramanga activó Bot de Citas 24/7 integrado a Google Calendar.', en: 'Dental clinic in Bucaramanga activated 24/7 Appointment Bot linked to Google Calendar.', timeES: 'Hace 18 min', timeEN: '18m ago' },
+        { icon: '🛍️', es: 'Tienda de accesorios en Barranquilla integró pasarela PayU + Facturación automática.', en: 'Boutique store in Barranquilla integrated PayU gateway + Automatic Invoicing.', timeES: 'Hace 23 min', timeEN: '23m ago' },
+        { icon: '📊', es: 'Empresa de logística en Manizales solicitó Dashboard de Gestión con Copiloto IA.', en: 'Logistics company in Manizales requested Management Dashboard with AI Copilot.', timeES: 'Hace 29 min', timeEN: '29m ago' },
+        { icon: '📱', es: 'Restaurante en Cartagena instaló Web App PWA para pedidos directos sin comisiones.', en: 'Restaurant in Cartagena deployed PWA Web App for direct commission-free orders.', timeES: 'Hace 35 min', timeEN: '35m ago' },
+        { icon: '⚡', es: 'Diagnóstico rápido: Sitio web en Pereira optimizó su tiempo de carga de 4.2s a 0.5s.', en: 'Speed diagnostic: Business in Pereira improved load time from 4.2s to 0.5s.', timeES: 'Hace 41 min', timeEN: '41m ago' },
+        { icon: '💳', es: 'Agencia de viajes en Santa Marta implementó pago en 1-clic con confirmación en WhatsApp.', en: 'Travel agency in Santa Marta enabled 1-click checkout with WhatsApp confirmation.', timeES: 'Hace 47 min', timeEN: '47m ago' },
+        { icon: '🧠', es: 'Firma consultora en Bogotá solicitó sistema RAG para búsqueda de documentos con IA.', en: 'Consulting firm in Bogota requested RAG AI system for document search.', timeES: 'Hace 53 min', timeEN: '53m ago' },
+        { icon: '📈', es: 'Hotel boutique en San Andrés cotizó automatización de reservas directas por WhatsApp.', en: 'Boutique hotel in San Andres requested direct booking automation via WhatsApp.', timeES: 'Hace 1h', timeEN: '1h ago' },
+        { icon: '🚀', es: 'Plataforma educativa en Medellín redujo -70% el tiempo de procesamiento manual.', en: 'EdTech platform in Medellin cut manual operation time by -70%.', timeES: 'Hace 1h 12m', timeEN: '1h 12m ago' },
+        { icon: '💬', es: 'Lead internacional desde Madrid (España) solicitó diseño de landing page de alta conversión.', en: 'Global lead from Madrid (Spain) requested high-converting landing page design.', timeES: 'Hace 1h 25m', timeEN: '1h 25m ago' },
+        { icon: '🤖', es: 'Empresa de seguros en Cúcuta integró asistente virtual Meta WhatsApp API 24/7.', en: 'Insurance provider in Cucuta integrated 24/7 Meta WhatsApp API virtual agent.', timeES: 'Hace 1h 40m', timeEN: '1h 40m ago' },
+        { icon: '⚡', es: 'Comercio mayorista en Pasto analizó su tienda online (41/100) y agendó auditoría.', en: 'Wholesale store in Pasto audited their shop (41/100) and scheduled tech review.', timeES: 'Hace 2h', timeEN: '2h ago' },
+        { icon: '📊', es: 'Startup en Bogotá implementó panel de control de ventas con exportación auto en Excel.', en: 'Tech startup in Bogota deployed sales analytics dashboard with auto-Excel export.', timeES: 'Hace 2h 15m', timeEN: '2h 15m ago' },
+        { icon: '📱', es: 'Marca de ropa en Villavicencio lanzó catálogo móvil optimizado para la zona del pulgar.', en: 'Apparel brand in Villavicencio launched mobile-first thumb-zone catalog.', timeES: 'Hace 2h 30m', timeEN: '2h 30m ago' }
       ];
+
+      // Shuffle array dynamically so every visit presents a fresh sequence
+      try {
+        liveItems.sort(function () { return Math.random() - 0.5; });
+      } catch (e) {}
 
       var currentIndex = 0;
       var cardEl = document.getElementById('tickerLiveCard');
       var iconEl = document.getElementById('tickerCardIcon');
       var textEl = document.getElementById('tickerCardText');
+      var timeEl = document.getElementById('tickerCardTime');
 
       if (!cardEl || !iconEl || !textEl) return;
 
+      function updateCardContent() {
+        var item = liveItems[currentIndex];
+        if (!item) return;
+
+        iconEl.textContent = item.icon;
+        textEl.textContent = (window.currentLang === 'EN') ? item.en : item.es;
+        if (timeEl) timeEl.textContent = (window.currentLang === 'EN') ? item.timeEN : item.timeES;
+      }
+
+      // Draw initial item
+      updateCardContent();
+
       function rotateItem() {
         currentIndex = (currentIndex + 1) % liveItems.length;
-        var item = liveItems[currentIndex];
-
         cardEl.classList.add('is-changing');
 
         setTimeout(function () {
-          iconEl.textContent = item.icon;
-          textEl.dataset.i18n = item.key;
-          var langText = (window.currentLang === 'EN') ? item.en : item.es;
-          textEl.textContent = langText;
-
+          updateCardContent();
           cardEl.classList.remove('is-changing');
         }, 400);
       }
 
-      setInterval(rotateItem, 4200);
+      setInterval(rotateItem, 4500);
     })();
 
     // ---- 5. Multilingual (ES / EN) & Dynamic Currency (USD / COP) Engine ----
