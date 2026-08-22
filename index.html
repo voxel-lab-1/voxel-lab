@@ -1861,20 +1861,20 @@
   /* Complexity options */
   .quote-complexity-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 12px;
   }
 
   /* Extras Toggle Chips */
   .quote-extras-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 12px;
   }
   .quote-extra-chip {
     font-family: "GeneralSansVL", sans-serif;
     font-size: 0.85rem;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.02);
@@ -1883,6 +1883,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
     transition: all 0.2s ease;
   }
   .quote-extra-chip:hover {
@@ -1901,9 +1902,12 @@
     font-size: 0.72rem;
     color: #FFFFFF !important;
     background: rgba(255, 255, 255, 0.08);
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.16);
+    flex-shrink: 0;
+    margin-left: auto;
+    white-space: nowrap;
   }
   .quote-extra-chip.is-active .quote-extra-badge {
     background: rgba(36, 216, 255, 0.18);
