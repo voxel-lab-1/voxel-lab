@@ -3586,6 +3586,21 @@
     });
 
     var startTime = performance.now();
+    var fieldRect = field.getBoundingClientRect();
+    var copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
+    var textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
+    var textRight = copyRect ? (copyRect.right - fieldRect.left + 25) : -999;
+    var textTop = copyRect ? (copyRect.top - fieldRect.top - 25) : -999;
+    var textBottom = copyRect ? (copyRect.bottom - fieldRect.top + 25) : -999;
+
+    window.addEventListener('resize', function () {
+      fieldRect = field.getBoundingClientRect();
+      copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
+      textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
+      textRight = copyRect ? (copyRect.right - fieldRect.left + 25) : -999;
+      textTop = copyRect ? (copyRect.top - fieldRect.top - 25) : -999;
+      textBottom = copyRect ? (copyRect.bottom - fieldRect.top + 25) : -999;
+    });
 
     function animate(now) {
       var elapsed = now - startTime;
@@ -3593,16 +3608,6 @@
       // Suavizado de movimiento de mouse
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
-
-      // Obtener caja contenedora del texto para desvanecimiento por oclusión
-      var fieldRect = field.getBoundingClientRect();
-      var copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
-
-      // Área protegida del texto con margen de amortiguación
-      var textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
-      var textRight = copyRect ? (copyRect.right - fieldRect.left + 25) : -999;
-      var textTop = copyRect ? (copyRect.top - fieldRect.top - 25) : -999;
-      var textBottom = copyRect ? (copyRect.bottom - fieldRect.top + 25) : -999;
 
       cubes.forEach(function (cube) {
         // Onda flotante continua
