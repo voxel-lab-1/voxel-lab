@@ -10,7 +10,6 @@
 <!-- 🛡️ Metaetiquetas de Seguridad & Habeas Data -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 
 <!-- 🔍 SEO Meta Tags Primarios -->
 <title>Voxel Lab — Soluciones Digitales, Páginas Web Rápidas & Software con IA</title>
@@ -2793,7 +2792,7 @@
           <button type="button" class="btn btn-primary" id="speedAuditBtn" onclick="runSpeedAudit()" data-i18n="audit_btn">Analizar Mi Web</button>
         </div>
         <div class="audit-privacy-note" style="margin-top: 10px; font-size: 0.76rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.</span>
+          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="#privacyModal" onclick="openPrivacyModal(); return false;" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.</span>
         </div>
 
         <!-- Loader Animado durante el análisis -->
@@ -3516,7 +3515,7 @@
       &copy; 2026 Voxel Lab &mdash; Soluciones digitales que impulsan tu negocio.
     </div>
     <div class="foot-links">
-      <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="foot_privacy">Tratamiento de Datos & Privacidad</a>
+      <a href="#privacyModal" onclick="openPrivacyModal(); return false;" data-i18n="foot_privacy">Tratamiento de Datos & Privacidad</a>
       <a href="#contacto" data-i18n="foot_contact">Contacto</a>
     </div>
   </div>
@@ -4702,7 +4701,7 @@
           t_i3: 'Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.',
           t_i4: 'Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.',
           foot_privacy: 'Tratamiento de Datos & Privacidad',
-          audit_privacy_note: '🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.',
+          audit_privacy_note: '🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="#privacyModal" onclick="openPrivacyModal(); return false;" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.',
           audit_privacy_link: 'Política de Tratamiento de Datos',
           qt_4: 'Protección de datos (Ley 1581)',
           privacy_h3: 'Política de Tratamiento de Datos Personales & Privacidad',
@@ -4904,7 +4903,7 @@
           t_i3: 'New E-Commerce launched with 0.4s load speed & 99/100 Google score.',
           t_i4: 'Inquiry received from US for Custom AI Software development.',
           foot_privacy: 'Data Treatment & Privacy Policy',
-          audit_privacy_note: '🔒 256-bit SSL Encrypted. By auditing your site you accept our <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Data Treatment Policy</a>.',
+          audit_privacy_note: '🔒 256-bit SSL Encrypted. By auditing your site you accept our <a href="#privacyModal" onclick="openPrivacyModal(); return false;" style="color:var(--cyan); text-decoration:underline;">Data Treatment Policy</a>.',
           audit_privacy_link: 'Data Treatment Policy',
           qt_4: 'Data Protection (Law 1581)',
           privacy_h3: 'Personal Data Treatment & Privacy Policy',
