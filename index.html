@@ -7,6 +7,11 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
+<!-- 🛡️ Metaetiquetas de Seguridad & Habeas Data -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
 <!-- 🔍 SEO Meta Tags Primarios -->
 <title>Voxel Lab — Soluciones Digitales, Páginas Web Rápidas & Software con IA</title>
 <meta name="title" content="Voxel Lab — Soluciones Digitales, Páginas Web Rápidas & Software con IA">
@@ -2787,6 +2792,9 @@
           </div>
           <button type="button" class="btn btn-primary" id="speedAuditBtn" onclick="runSpeedAudit()" data-i18n="audit_btn">Analizar Mi Web</button>
         </div>
+        <div class="audit-privacy-note" style="margin-top: 10px; font-size: 0.76rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.</span>
+        </div>
 
         <!-- Loader Animado durante el análisis -->
         <div class="speed-loader-box" id="speedLoaderBox" style="display: none;">
@@ -3461,6 +3469,46 @@
   </div>
 </div>
 
+<!-- 📜 MODAL DE POLÍTICA DE TRATAMIENTO DE DATOS PERSONALES & PRIVACIDAD (Habeas Data Ley 1581) -->
+<div class="port-modal-overlay" id="privacyModal" style="display: none;" onclick="closePrivacyModal(event)">
+  <div class="port-modal-card privacy-modal-card" onclick="event.stopPropagation()" style="max-width: 580px; width: 92%;">
+    <button type="button" class="port-modal-close" onclick="closePrivacyModal()">&times;</button>
+    
+    <div class="port-modal-header">
+      <span class="tag">⚖️ Habeas Data · Ley 1581</span>
+      <h3 data-i18n="privacy_h3">Política de Tratamiento de Datos Personales & Privacidad</h3>
+      <p data-i18n="privacy_sub">En Voxel Lab garantizamos la protección, confidencialidad y uso transparente de tu información.</p>
+    </div>
+
+    <div class="privacy-modal-body" style="max-height: 52vh; overflow-y: auto; text-align: left; font-size: 0.86rem; line-height: 1.6; color: var(--ink-soft); padding: 12px 4px; display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <strong style="color: var(--ink);" data-i18n="p_sec1_t">1. Responsable del Tratamiento de Datos</strong>
+        <p data-i18n="p_sec1_d">Voxel Lab (voxelab.co), agencia de desarrollo de software y soluciones digitales en Colombia. Correo de contacto: voxelab1@gmail.com.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="p_sec2_t">2. Datos Recolectados y Finalidad</strong>
+        <p data-i18n="p_sec2_d">Recolectamos únicamente la dirección web (URL), teléfono/WhatsApp y correo electrónico ingresados voluntariamente. La finalidad exclusiva es entregar el diagnóstico de velocidad, enviar cotizaciones requeridas y brindar atención comercial.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="p_sec3_t">3. Protección y No Transferencia a Terceros</strong>
+        <p data-i18n="p_sec3_d">Tus datos están protegidos mediante cifrado SSL/TLS de 256 bits y jamás serán vendidos, cedidos ni compartidos con plataformas externas sin tu consentimiento expreso.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="p_sec4_t">4. Derechos del Titular (Habeas Data)</strong>
+        <p data-i18n="p_sec4_d">Tienes derecho a conocer, actualizar, rectificar o solicitar la eliminación total de tus datos de nuestras bases en cualquier momento escribiendo a voxelab1@gmail.com.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="p_sec5_t">5. Seguridad de la Información</strong>
+        <p data-i18n="p_sec5_d">Implementamos medidas técnicas y organizativas para prevenir el acceso no autorizado o alteración de datos.</p>
+      </div>
+    </div>
+
+    <div class="port-modal-footer" style="margin-top: 14px;">
+      <button type="button" class="btn btn-primary btn-sm" onclick="closePrivacyModal();" data-i18n="privacy_close_btn">Entendido y Acepto</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap foot-row">
     <div style="display:flex; align-items:center; gap:10px;" data-i18n="foot_copy">
@@ -3468,6 +3516,7 @@
       &copy; 2026 Voxel Lab &mdash; Soluciones digitales que impulsan tu negocio.
     </div>
     <div class="foot-links">
+      <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="foot_privacy">Tratamiento de Datos & Privacidad</a>
       <a href="#contacto" data-i18n="foot_contact">Contacto</a>
     </div>
   </div>
@@ -3990,10 +4039,18 @@
       chatBody.scrollTop = chatBody.scrollHeight;
     };
 
-    // ---- 2. Enhanced Speed Audit Tool Logic ----
+    // ---- 2. Enhanced Speed Audit Tool Logic with Anti-Spam Rate Limiter ----
     window.lastAuditData = { url: '', score: '38/100', loadTime: '4.8s' };
+    var lastAuditTimestamp = 0;
 
     window.runSpeedAudit = function () {
+      var now = Date.now();
+      if (now - lastAuditTimestamp < 4000) {
+        alert(window.currentLang === 'EN' ? '🔒 Security Notice: Please wait a few seconds before running another audit.' : '🔒 Aviso de Seguridad: Por favor espera unos segundos antes de realizar otro análisis.');
+        return;
+      }
+      lastAuditTimestamp = now;
+
       var input = document.getElementById('speedUrlInput');
       var loaderBox = document.getElementById('speedLoaderBox');
       var resBox = document.getElementById('speedResultBox');
@@ -4290,8 +4347,28 @@
       document.body.style.overflow = '';
     };
 
+    window.openPrivacyModal = function () {
+      var modal = document.getElementById('privacyModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    window.closePrivacyModal = function (e) {
+      if (e && e.target && e.target.id !== 'privacyModal' && !e.target.classList.contains('port-modal-close')) {
+        return;
+      }
+      var modal = document.getElementById('privacyModal');
+      if (modal) modal.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') window.closePortModal();
+      if (e.key === 'Escape') {
+        window.closePortModal();
+        window.closePrivacyModal();
+      }
     });
 
     // ---- 4.8. Dynamic Live Activity Generator (18 Diverse Real Scenarios + Auto-Shuffle) ----
@@ -4623,7 +4700,24 @@
           t_i1: 'Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.',
           t_i2: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.',
           t_i3: 'Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.',
-          t_i4: 'Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.'
+          t_i4: 'Consulta recibida desde EE.UU. para desarrollo de Software a medida con IA.',
+          foot_privacy: 'Tratamiento de Datos & Privacidad',
+          audit_privacy_note: '🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.',
+          audit_privacy_link: 'Política de Tratamiento de Datos',
+          qt_4: 'Protección de datos (Ley 1581)',
+          privacy_h3: 'Política de Tratamiento de Datos Personales & Privacidad',
+          privacy_sub: 'En Voxel Lab garantizamos la protección, confidencialidad y uso transparente de tu información.',
+          privacy_close_btn: 'Entendido y Acepto',
+          p_sec1_t: '1. Responsable del Tratamiento de Datos',
+          p_sec1_d: 'Voxel Lab (voxelab.co), agencia de desarrollo de software y soluciones digitales en Colombia. Correo de contacto: voxelab1@gmail.com.',
+          p_sec2_t: '2. Datos Recolectados y Finalidad',
+          p_sec2_d: 'Recolectamos únicamente la dirección web (URL), teléfono/WhatsApp y correo electrónico ingresados voluntariamente. La finalidad exclusiva es entregar el diagnóstico de velocidad, enviar cotizaciones requeridas y brindar atención comercial.',
+          p_sec3_t: '3. Protección y No Transferencia a Terceros',
+          p_sec3_d: 'Tus datos están protegidos mediante cifrado SSL/TLS de 256 bits y jamás serán vendidos, cedidos ni compartidos con plataformas externas sin tu consentimiento expreso.',
+          p_sec4_t: '4. Derechos del Titular (Habeas Data)',
+          p_sec4_d: 'Tienes derecho a conocer, actualizar, rectificar o solicitar la eliminación total de tus datos de nuestras bases en cualquier momento escribiendo a voxelab1@gmail.com.',
+          p_sec5_t: '5. Seguridad de la Información',
+          p_sec5_d: 'Implementamos medidas técnicas y organizativas para prevenir el acceso no autorizado o alteración de datos.'
         },
         EN: {
           nav_services: 'Services',
@@ -4808,7 +4902,24 @@
           t_i1: 'A business in Bogota audited their site (34/100) and requested optimization.',
           t_i2: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.',
           t_i3: 'New E-Commerce launched with 0.4s load speed & 99/100 Google score.',
-          t_i4: 'Inquiry received from US for Custom AI Software development.'
+          t_i4: 'Inquiry received from US for Custom AI Software development.',
+          foot_privacy: 'Data Treatment & Privacy Policy',
+          audit_privacy_note: '🔒 256-bit SSL Encrypted. By auditing your site you accept our <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color:var(--cyan); text-decoration:underline;">Data Treatment Policy</a>.',
+          audit_privacy_link: 'Data Treatment Policy',
+          qt_4: 'Data Protection (Law 1581)',
+          privacy_h3: 'Personal Data Treatment & Privacy Policy',
+          privacy_sub: 'At Voxel Lab we guarantee the protection, confidentiality, and transparent use of your information.',
+          privacy_close_btn: 'Understood & Accept',
+          p_sec1_t: '1. Data Controller',
+          p_sec1_d: 'Voxel Lab (voxelab.co), digital solutions & software development agency in Colombia. Contact email: voxelab1@gmail.com.',
+          p_sec2_t: '2. Collected Data & Purpose',
+          p_sec2_d: 'We only collect voluntarily entered website URL, WhatsApp phone number, and email. The sole purpose is delivering speed audits, requested quotes, and customer support.',
+          p_sec3_t: '3. Protection & No Third-Party Disclosure',
+          p_sec3_d: 'Your data is secured via 256-bit SSL/TLS encryption and will never be sold, leased, or shared with external platforms without express consent.',
+          p_sec4_t: '4. Data Subject Rights',
+          p_sec4_d: 'You have the right to access, update, rectify, or request full deletion of your personal data at any time by emailing voxelab1@gmail.com.',
+          p_sec5_t: '5. Information Security',
+          p_sec5_d: 'We implement technical and organizational measures to prevent unauthorized access or data alteration.'
         }
       };
 
