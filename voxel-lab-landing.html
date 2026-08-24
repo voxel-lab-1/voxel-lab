@@ -226,7 +226,7 @@
     <div class="wrap">
       <div class="stat">
         <div class="stat-num" data-count-from="8.4" data-count-to="0.9" data-decimals="1" data-suffix="s">8.4<span class="unit">s</span></div>
-        <div class="stat-label" data-i18n="stat_1">tiempo de carga objetivo</div>
+        <div class="stat-label" data-i18n="stat_1">tiempo de carga en móvil (&lt;1s)</div>
       </div>
       <div class="stat">
         <div class="stat-num" data-count-from="0" data-count-to="100" data-decimals="0" data-suffix="%">0<span class="unit">%</span></div>
@@ -293,7 +293,7 @@
           <button type="button" class="btn btn-primary" id="speedAuditBtn" onclick="runSpeedAudit()" data-i18n="audit_btn">Analizar Mi Web</button>
         </div>
         <div class="audit-privacy-note" style="margin-top: 10px; font-size: 0.76rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit. Al analizar tu web aceptas nuestra <a href="#privacyModal" onclick="openPrivacyModal(); return false;" style="color:var(--cyan); text-decoration:underline;">Política de Tratamiento de Datos</a>.</span>
+          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit · *Medido bajo la metodología oficial de Google PageSpeed & Lighthouse.</span>
         </div>
 
         <!-- Loader Animado durante el análisis -->
@@ -327,8 +327,8 @@
 
             <div class="speed-metric-card metric--success">
               <span class="metric-title" data-i18n="audit_m3_t">Solución Voxel Lab</span>
-              <span class="metric-val">0.4s</span>
-              <span class="metric-sub" data-i18n="audit_m3_s">🚀 99/100 Lighthouse</span>
+              <span class="metric-val">&lt; 0.9s</span>
+              <span class="metric-sub" data-i18n="audit_m3_s">🚀 95+ Google Speed (Móvil)</span>
             </div>
           </div>
 
