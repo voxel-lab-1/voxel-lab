@@ -3573,19 +3573,8 @@
       });
     });
 
-    // Seguimiento del mouse para paralaje 3D
-    hero.addEventListener('mousemove', function (e) {
-      var rect = hero.getBoundingClientRect();
-      targetMouseX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-      targetMouseY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-    });
-
-    hero.addEventListener('mouseleave', function () {
-      targetMouseX = 0;
-      targetMouseY = 0;
-    });
-
     var startTime = performance.now();
+    var heroRect = hero.getBoundingClientRect();
     var fieldRect = field.getBoundingClientRect();
     var copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
     var textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
@@ -3593,7 +3582,19 @@
     var textTop = copyRect ? (copyRect.top - fieldRect.top - 25) : -999;
     var textBottom = copyRect ? (copyRect.bottom - fieldRect.top + 25) : -999;
 
+    // Seguimiento del mouse para paralaje 3D
+    hero.addEventListener('mousemove', function (e) {
+      targetMouseX = (e.clientX - heroRect.left - heroRect.width / 2) / (heroRect.width / 2);
+      targetMouseY = (e.clientY - heroRect.top - heroRect.height / 2) / (heroRect.height / 2);
+    });
+
+    hero.addEventListener('mouseleave', function () {
+      targetMouseX = 0;
+      targetMouseY = 0;
+    });
+
     window.addEventListener('resize', function () {
+      heroRect = hero.getBoundingClientRect();
       fieldRect = field.getBoundingClientRect();
       copyRect = heroCopy ? heroCopy.getBoundingClientRect() : null;
       textLeft = copyRect ? (copyRect.left - fieldRect.left - 25) : -999;
