@@ -3637,20 +3637,24 @@
 
         // Desvanecer a 0.16 y aplicar leve desenfoque detrás del texto para 100% legibilidad; 0.85-1.0 fuera del texto
         var targetOpacity = isBehindText ? 0.16 : Math.min(1.0, 0.75 + (cube.depth * 0.25));
-        var targetBlur = isBehindText ? 'blur(3px)' : 'blur(0px)';
+        // Omitir filtro blur en pantallas móviles (<640px) para máxima velocidad de GPU
+        var isMobile = window.innerWidth <= 640;
+        var targetBlur = (!isMobile && isBehindText) ? 'blur(3px)' : 'none';
 
         cube.currentOpacity += (targetOpacity - cube.currentOpacity) * 0.08;
 
         // Aplicar transformación 3D y opacidad suave
         cube.el.style.transform = 'translate3d(' + pixelX.toFixed(1) + 'px, ' + pixelY.toFixed(1) + 'px, 0) scale(' + (0.75 + cube.depth * 0.35).toFixed(2) + ')';
         cube.el.style.opacity = cube.currentOpacity.toFixed(3);
-        cube.el.style.filter = targetBlur;
+        if (cube.el.style.filter !== targetBlur) cube.el.style.filter = targetBlur;
       });
 
       requestAnimationFrame(animate);
     }
 
-    requestAnimationFrame(animate);
+    setTimeout(function () {
+      requestAnimationFrame(animate);
+    }, 250);
   })();
 
     var navToggle = document.getElementById('navToggle');
