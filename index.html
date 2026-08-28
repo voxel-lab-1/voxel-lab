@@ -141,7 +141,7 @@
 
 <link rel="preload" href="fonts/unbounded-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/styles.min.css?v=1787883735">
+<link rel="stylesheet" href="css/styles.min.css?v=1787883890">
 
 <style>
 .hero h1 {
@@ -161,6 +161,20 @@
   color: transparent !important;
 }
 </style>
+<script>
+(function() {
+  function hideP() {
+    var p = document.getElementById('preloader');
+    if (p) p.classList.add('done');
+  }
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    setTimeout(hideP, 100);
+  } else {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(hideP, 100); });
+  }
+  setTimeout(hideP, 600);
+})();
+</script>
 </head>
 <body>
 <div class="site-root" style="width: 100%; max-width: 100%; overflow-x: clip; position: relative;">
@@ -1024,6 +1038,6 @@
 
 
 </div>
-<script src="js/main.min.js?v=1787883735" defer></script>
+<script src="js/main.min.js?v=1787883890" defer></script>
 </body>
 </html>

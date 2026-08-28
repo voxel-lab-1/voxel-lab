@@ -187,10 +187,10 @@
           if (pctEl) pctEl.textContent = pct + '%';
           if (pct >= 100) {
             clearInterval(tick);
-            setTimeout(function () { preloader.classList.add('done'); }, 260);
+            setTimeout(function () { preloader.classList.add('done'); }, 100);
           }
         }, 130);
-        setTimeout(function () { preloader.classList.add('done'); }, 2600);
+        setTimeout(function () { preloader.classList.add('done'); }, 150);
       }
     }
 
