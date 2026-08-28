@@ -1427,6 +1427,8 @@
           t_i3: 'New E-Commerce launched with 0.4s load speed & 99/100 Google score.',
           t_i4: 'Inquiry received from US for Custom AI Software development.',
           foot_privacy: 'Data Treatment & Privacy Policy',
+           foot_terms: 'Terms & Conditions',
+           foot_legal: 'Legal Notice & Cookies',
           audit_privacy_note: '🔒 256-bit SSL Encrypted. By auditing your site you accept our <a href="#privacyModal" onclick="openPrivacyModal(); return false;" style="color:var(--cyan); text-decoration:underline;">Data Treatment Policy</a>.',
           audit_privacy_link: 'Data Treatment Policy',
           qt_4: 'Data Protection (Law 1581)',
@@ -1455,6 +1457,32 @@
 
       if (typeof window.recalcQuote === 'function') window.recalcQuote();
       if (typeof window.updateCurrencyUI === 'function') window.updateCurrencyUI();
+    };
+
+
+    window.openPrivacyModal = function () {
+      var m = document.getElementById('privacyModal');
+      if (m) m.style.display = 'flex';
+    };
+    window.closePrivacyModal = function () {
+      var m = document.getElementById('privacyModal');
+      if (m) m.style.display = 'none';
+    };
+    window.openTermsModal = function () {
+      var m = document.getElementById('termsModal');
+      if (m) m.style.display = 'flex';
+    };
+    window.closeTermsModal = function () {
+      var m = document.getElementById('termsModal');
+      if (m) m.style.display = 'none';
+    };
+    window.openLegalModal = function () {
+      var m = document.getElementById('legalModal');
+      if (m) m.style.display = 'flex';
+    };
+    window.closeLegalModal = function () {
+      var m = document.getElementById('legalModal');
+      if (m) m.style.display = 'none';
     };
 
     // Run UI initialization on load

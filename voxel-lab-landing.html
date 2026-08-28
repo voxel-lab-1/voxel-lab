@@ -141,7 +141,7 @@
 
 <link rel="preload" href="fonts/unbounded-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/styles.min.css?v=1787888525">
+<link rel="stylesheet" href="css/styles.min.css?v=1787888984">
 
 <style>
 .hero h1 {
@@ -913,6 +913,79 @@
   </section>
 </main>
 
+
+<!-- 📄 MODAL 1: TÉRMINOS Y CONDICIONES DE USO Y COTIZACIÓN -->
+<div class="port-modal-overlay" id="termsModal" style="display:none;" onclick="closeTermsModal()">
+  <div class="port-modal-card privacy-modal-card" onclick="event.stopPropagation()" style="max-width: 620px; width: 92%;">
+    <button type="button" class="port-modal-close" onclick="closeTermsModal()">&times;</button>
+    
+    <div class="port-modal-header">
+      <span class="tag">📜 Términos del Servicio · Voxel Lab</span>
+      <h3 data-i18n="terms_h3">Términos y Condiciones de Uso & Cotización</h3>
+      <p data-i18n="terms_sub">Regulación del uso del portal web, herramientas de estimación y contratación de servicios.</p>
+    </div>
+
+    <div class="privacy-modal-body" style="max-height: 54vh; overflow-y: auto; text-align: left; font-size: 0.86rem; line-height: 1.6; color: var(--ink-soft); padding: 12px 4px; display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <strong style="color: var(--ink);" data-i18n="t_sec1_t">1. Objeto y Titularidad del Portal</strong>
+        <p data-i18n="t_sec1_d">El presente sitio web (https://www.voxelab.co/) es propiedad exclusiva de Voxel Lab. El acceso y uso del sitio atribuye la condición de usuario e implica la aceptación de estas condiciones.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="t_sec2_t">2. Carácter Informativo y No Vinculante del Cotizador</strong>
+        <p data-i18n="t_sec2_d">Los precios, módulos y plazos arrojados en la Calculadora de Inversión y en el Diagnóstico de Velocidad representan <b>estimaciones orientativas e informativas</b>. No constituyen una oferta comercial formal ni contrato vinculante hasta la firma de la propuesta técnica personalizada.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="t_sec3_t">3. Propiedad Intelectual e Industrial</strong>
+        <p data-i18n="t_sec3_d">Voxel Lab reserva todos los derechos de propiedad intelectual sobre el código fuente, diseño visual Cyber-Glass, logotipos y contenidos de la marca. Queda prohibida su reproducción sin autorización previa.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="t_sec4_t">4. Delimitación de Garantía y Servicios de Terceros</strong>
+        <p data-i18n="t_sec4_d">Voxel Lab no se responsabiliza por interrupciones ajenas a su control directo, tales como caídas de proveedores de infraestructura (AWS/Vercel), apis externas (Meta/WhatsApp) o pasarelas de pago (PayU/Stripe).</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="t_sec5_t">5. Ley Aplicable y Jurisdicción</strong>
+        <p data-i18n="t_sec5_d">Estos términos se rigen e interpretan conforme a las leyes de la República de Colombia.</p>
+      </div>
+    </div>
+
+    <div class="port-modal-footer" style="margin-top: 14px;">
+      <button type="button" class="btn btn-primary btn-sm" onclick="closeTermsModal();" data-i18n="privacy_close_btn">Entendido y Acepto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ⚖️ MODAL 3: AVISO LEGAL & POLÍTICA DE COOKIES -->
+<div class="port-modal-overlay" id="legalModal" style="display:none;" onclick="closeLegalModal()">
+  <div class="port-modal-card privacy-modal-card" onclick="event.stopPropagation()" style="max-width: 620px; width: 92%;">
+    <button type="button" class="port-modal-close" onclick="closeLegalModal()">&times;</button>
+    
+    <div class="port-modal-header">
+      <span class="tag">⚖️ Aviso Legal & Cookies</span>
+      <h3 data-i18n="legal_h3">Aviso Legal, Cookies & Garantía de Servicio (SLA)</h3>
+      <p data-i18n="legal_sub">Transparencia sobre almacenamiento local, seguridad e infraestructura.</p>
+    </div>
+
+    <div class="privacy-modal-body" style="max-height: 54vh; overflow-y: auto; text-align: left; font-size: 0.86rem; line-height: 1.6; color: var(--ink-soft); padding: 12px 4px; display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <strong style="color: var(--ink);" data-i18n="l_sec1_t">1. Política de Cookies y Almacenamiento Local</strong>
+        <p data-i18n="l_sec1_d">Este sitio utiliza únicamente almacenamiento técnico del navegador (localStorage) para guardar tus preferencias de uso (modo oscuro/claro, idioma ES/EN y cotización borrador). No utilizamos cookies rastreadoras ni vendemos datos a terceros.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="l_sec2_t">2. Compromiso de Rendimiento y Velocidad</strong>
+        <p data-i18n="l_sec2_d">Garantizamos llevar la puntuación de tus proyectos a la Zona Verde de Google (90+ a 100/100). La velocidad final estará sujeta a la entrega oportuna de contenidos y al uso de medios adecuadamente optimizados.</p>
+      </div>
+      <div>
+        <strong style="color: var(--ink);" data-i18n="l_sec3_t">3. Canales Oficiales de Contacto Legal</strong>
+        <p data-i18n="l_sec3_d">Para cualquier solicitud legal, consulta de Habeas Data o atención a clientes, puedes escribirnos al correo oficial: <b>voxelab1@gmail.com</b>.</p>
+      </div>
+    </div>
+
+    <div class="port-modal-footer" style="margin-top: 14px;">
+      <button type="button" class="btn btn-primary btn-sm" onclick="closeLegalModal();" data-i18n="privacy_close_btn">Entendido y Acepto</button>
+    </div>
+  </div>
+</div>
+
 <!-- 📲 BOTÓN FLOTANTE MÓVIL SUTIL DE WHATSAPP -->
 <div class="thumb-floating-btn" id="thumbFloatingBtn">
   <a href="https://api.whatsapp.com/send?phone=573217014186&text=Hola%20equipo%20Voxel%20Lab%20me%20interesa%20conocer%20los%20servicios%20%28desarrollo%20web%2C%20apps%2C%20automatizaci%C3%B3n%20e%20IA%29%20y%20recibir%20asesor%C3%ADa%20para%20mi%20proyecto." target="_blank" rel="noopener noreferrer" class="thumb-btn-inner" title="WhatsApp Voxel Lab" aria-label="WhatsApp Voxel Lab">
@@ -1017,7 +1090,9 @@
       &copy; 2026 Voxel Lab &mdash; Soluciones digitales que impulsan tu negocio.
     </div>
     <div class="foot-links">
+      <a href="#termsModal" onclick="openTermsModal(); return false;" data-i18n="foot_terms">Términos y Condiciones</a>
       <a href="#privacyModal" onclick="openPrivacyModal(); return false;" data-i18n="foot_privacy">Tratamiento de Datos & Privacidad</a>
+      <a href="#legalModal" onclick="openLegalModal(); return false;" data-i18n="foot_legal">Aviso Legal & Cookies</a>
       <a href="#contacto" data-i18n="foot_contact">Contacto</a>
     </div>
   </div>
@@ -1025,6 +1100,6 @@
 
 
 </div>
-<script src="js/main.min.js?v=1787888525" defer></script>
+<script src="js/main.min.js?v=1787888984" defer></script>
 </body>
 </html>
