@@ -2522,13 +2522,9 @@
   }
 
 
-  @keyframes preloaderAutoDismiss {
-    0%, 70% { opacity: 1; visibility: visible; }
-    100% { opacity: 0; visibility: hidden; pointer-events: none; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; }
   }
-  .preloader {
-    animation: preloaderAutoDismiss 0.8s forwards ease-out;
-  }
+  
   .preloader.done {
     opacity: 0 !important;
     visibility: hidden !important;

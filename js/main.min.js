@@ -174,7 +174,7 @@
     }
     setTimeout(fitShots, 60);
 
-    // ---- preloader ----
+        // ---- preloader ----
     var preloader = document.getElementById('preloader');
     if (preloader) {
       var pctEl = document.getElementById('preloaderCount');
@@ -183,14 +183,14 @@
       } else {
         var pct = 0;
         var tick = setInterval(function () {
-          pct = Math.min(100, pct + Math.floor(Math.random() * 16) + 8);
+          pct = Math.min(100, pct + Math.floor(Math.random() * 18) + 12);
           if (pctEl) pctEl.textContent = pct + '%';
           if (pct >= 100) {
             clearInterval(tick);
-            setTimeout(function () { preloader.classList.add('done'); }, 100);
+            setTimeout(function () { preloader.classList.add('done'); }, 200);
           }
-        }, 130);
-        setTimeout(function () { preloader.classList.add('done'); }, 150);
+        }, 70);
+        setTimeout(function () { preloader.classList.add('done'); }, 1200);
       }
     }
 
