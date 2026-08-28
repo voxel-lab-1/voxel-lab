@@ -408,7 +408,7 @@
         );
       }
 
-            waBtn.addEventListener('click', function () {
+                  waBtn.addEventListener('click', function () {
         if (selectedTypes.length === 0) return;
         var payload = waBtn.dataset.payload || summaryEl.textContent;
         var waUrl = 'https://api.whatsapp.com/send?phone=573217014186&text=' + encodeURIComponent(payload);
@@ -675,7 +675,7 @@
       });
     };
 
-                window.shareAuditWhatsApp = function () {
+                    window.shareAuditWhatsApp = function () {
       var d = window.lastAuditData || {};
       var host = d.url || 'mi sitio web';
       var score = d.score || '38/100';
@@ -684,7 +684,8 @@
         'Hola Voxel Lab, I audited my website (' + host + ') and got a score of ' + score + ' (load time ' + time + '). I want to optimize it for speed and sales.' :
         'Hola Voxel Lab, acabo de analizar mi web (' + host + ') y obtuve un puntaje de ' + score + ' (tiempo de carga ' + time + '). Quiero optimizarla para aumentar mis ventas.';
       var waUrl = 'https://api.whatsapp.com/send?phone=573217014186&text=' + encodeURIComponent(text);
-     };
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    };
 
     // ---- 3. ROI Calculator Logic ----
     window.recalcROI = function () {
