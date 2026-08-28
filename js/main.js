@@ -677,7 +677,7 @@
       });
     };
 
-        window.shareAuditWhatsApp = function () {
+            window.shareAuditWhatsApp = function () {
       var d = window.lastAuditData || {};
       var host = d.url || 'mi sitio web';
       var score = d.score || '38/100';
@@ -685,18 +685,7 @@
       var text = window.currentLang === 'EN' ?
         'Hola Voxel Lab, I audited my website (' + host + ') and got a score of ' + score + ' (load time ' + time + '). I want to optimize it for speed and sales.' :
         'Hola Voxel Lab, acabo de analizar mi web (' + host + ') y obtuve un puntaje de ' + score + ' (tiempo de carga ' + time + '). Quiero optimizarla para aumentar mis ventas.';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).catch(function () {});
-      }
-      window.open('https://wa.me/message/IIIEIUCWQF7DP1', '_blank', 'noopener,noreferrer');
-    };
-      var host = d.url || 'mi sitio web';
-      var score = d.score || '38/100';
-      var time = d.loadTime || '4.8s';
-      var text = window.currentLang === 'EN' ?
-        'Hola Voxel Lab, I audited my website (' + host + ') and got a score of ' + score + ' (load time ' + time + '). I want to optimize it for speed and sales.' :
-        'Hola Voxel Lab, acabo de analizar mi web (' + host + ') y obtuve un puntaje de ' + score + ' (tiempo de carga ' + time + '). Quiero optimizarla para aumentar mis ventas.';
-      var waUrl = 'https://wa.me/573217014186?text=' + encodeURIComponent(text);
+      var waUrl = 'https://wa.me/message/IIIEIUCWQF7DP1';
       window.open(waUrl, '_blank', 'noopener,noreferrer');
     };
 
