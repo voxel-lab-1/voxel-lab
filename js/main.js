@@ -411,12 +411,23 @@
       waBtn.addEventListener('click', function () {
         if (selectedTypes.length === 0) return;
         var payload = waBtn.dataset.payload || summaryEl.textContent;
-        var waUrl = 'https://api.whatsapp.com/send?phone=573217014186&text=' + encodeURIComponent(payload);
-        window.open(waUrl, '_blank', 'noopener,noreferrer');
+        window.openDirectWhatsApp(payload);
       });
       emailBtn.addEventListener('click', function () { handleActionClick('Correo Electrónico'); });
 
     })();
+
+
+    window.openDirectWhatsApp = function (text) {
+      var phone = '573217014186';
+      var encodedText = encodeURIComponent(text || '');
+      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = 'whatsapp://send?phone=' + phone + '&text=' + encodedText;
+      } else {
+        window.open('https://web.whatsapp.com/send?phone=' + phone + '&text=' + encodedText, '_blank', 'noopener,noreferrer');
+      }
+    };
 
     // ---- interactive automation flow ----
     var flowInfo = document.getElementById('flowInfo');
@@ -675,6 +686,14 @@
 
     window.shareAuditWhatsApp = function () {
       var d = window.lastAuditData || {};
+      var host = d.url || 'mi sitio web';
+      var score = d.score || '38/100';
+      var time = d.loadTime || '4.8s';
+      var text = window.currentLang === 'EN' ?
+        'Hola Voxel Lab, I audited my website (' + host + ') and got a score of ' + score + ' (load time ' + time + '). I want to optimize it for speed and sales.' :
+        'Hola Voxel Lab, acabo de analizar mi web (' + host + ') y obtuve un puntaje de ' + score + ' (tiempo de carga ' + time + '). Quiero optimizarla para aumentar mis ventas.';
+      window.openDirectWhatsApp(text);
+    };
       var host = d.url || 'mi sitio web';
       var score = d.score || '38/100';
       var time = d.loadTime || '4.8s';
