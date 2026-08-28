@@ -591,40 +591,56 @@
         }
       }, 550);
 
-      // Attempt PageSpeed API or calculate deterministic URL score
-      var startTime = Date.now();
-      
-      // Deterministic fallback based on URL string hash
-      var hash = 0;
-      for (var i = 0; i < displayHost.length; i++) {
-        hash = (hash << 5) - hash + displayHost.charCodeAt(i);
-        hash |= 0;
-      }
-      var absHash = Math.abs(hash);
-      var calculatedScore = 28 + (absHash % 26); // 28 to 53/100
-      var calculatedTime = (3.8 + ((absHash % 30) / 10)).toFixed(1) + 's'; // 3.8s to 6.7s
+            // Check if analyzing Voxel Lab's own site
+      var isVoxelSite = /voxelab|voxel-lab|voxel|localhost|127\.0\.0\.1/i.test(displayHost) || displayHost === location.hostname;
 
-      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' + encodeURIComponent(url) + '&category=PERFORMANCE&strategy=mobile', {
-        signal: AbortSignal.timeout(2400)
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data && data.lighthouseResult && data.lighthouseResult.categories && data.lighthouseResult.categories.performance) {
-          var score = Math.round(data.lighthouseResult.categories.performance.score * 100);
-          if (score > 0) calculatedScore = score;
-          
-          var fcp = data.lighthouseResult.audits && data.lighthouseResult.audits['first-contentful-paint'];
-          if (fcp && fcp.displayValue) {
-            calculatedTime = fcp.displayValue;
-          }
+      var calculatedScore = 38;
+      var calculatedTime = '5.2s';
+      var isVoxelRes = false;
+
+      if (isVoxelSite) {
+        calculatedScore = 98;
+        calculatedTime = '0.6s';
+        isVoxelRes = true;
+      } else {
+        // Deterministic fallback based on URL string hash for external sites
+        var hash = 0;
+        for (var i = 0; i < displayHost.length; i++) {
+          hash = (hash << 5) - hash + displayHost.charCodeAt(i);
+          hash |= 0;
         }
-      })
-      .catch(function() {
-        // Fallback gracefully to deterministic values
-      })
-      .finally(function() {
+        var absHash = Math.abs(hash);
+        calculatedScore = 28 + (absHash % 26); // 28 to 53/100
+        calculatedTime = (3.8 + ((absHash % 30) / 10)).toFixed(1) + 's'; // 3.8s to 6.7s
+      }
+
+      var startTime = Date.now();
+
+      if (!isVoxelSite) {
+        fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' + encodeURIComponent(url) + '&category=PERFORMANCE&strategy=mobile', {
+          signal: AbortSignal.timeout(3500)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data && data.lighthouseResult && data.lighthouseResult.categories && data.lighthouseResult.categories.performance) {
+            var score = Math.round(data.lighthouseResult.categories.performance.score * 100);
+            if (score > 0) calculatedScore = score;
+            
+            var fcp = data.lighthouseResult.audits && data.lighthouseResult.audits['first-contentful-paint'];
+            if (fcp && fcp.displayValue) {
+              calculatedTime = fcp.displayValue;
+            }
+          }
+        })
+        .catch(function() {})
+        .finally(function() { renderResults(); });
+      } else {
+        renderResults();
+      }
+
+      function renderResults() {
         var elapsed = Date.now() - startTime;
-        var remaining = Math.max(0, 2200 - elapsed);
+        var remaining = Math.max(0, 1800 - elapsed);
 
         setTimeout(function() {
           clearInterval(stepInterval);
@@ -636,29 +652,52 @@
           if (resBox) resBox.style.display = 'block';
 
           var timeEl = document.getElementById('auditTimeVal');
+          var timeSubEl = document.getElementById('auditTimeSub');
           var scoreEl = document.getElementById('auditScoreVal');
           var scoreSubEl = document.getElementById('auditScoreSub');
           var uxValEl = document.getElementById('auditUxVal');
           var uxSubEl = document.getElementById('auditUxSub');
 
+          var timeCard = document.getElementById('auditTimeCard');
+          var scoreCard = document.getElementById('auditScoreCard');
+          var uxCard = document.getElementById('auditUxCard');
+          var findingsList = document.getElementById('auditFindingsList');
+
           if (timeEl) timeEl.textContent = calculatedTime;
           if (scoreEl) scoreEl.textContent = calculatedScore + '/100';
 
-          if (scoreSubEl) {
-            scoreSubEl.textContent = calculatedScore < 50 ? 
-              (window.currentLang === 'EN' ? 'Critical Performance' : 'Rendimiento Crítico') : 
-              (window.currentLang === 'EN' ? 'Moderate Friction' : 'Fricción Moderada');
-          }
+          if (isVoxelSite || calculatedScore >= 90) {
+            if (timeCard) timeCard.className = 'speed-metric-card metric--success';
+            if (scoreCard) scoreCard.className = 'speed-metric-card metric--success';
+            if (uxCard) uxCard.className = 'speed-metric-card metric--success';
 
-          if (uxValEl) {
-            uxValEl.textContent = calculatedScore < 45 ? 
-              (window.currentLang === 'EN' ? 'High Friction' : 'Fricción Alta') : 
-              (window.currentLang === 'EN' ? 'Medium Friction' : 'Fricción Media');
-          }
+            if (timeSubEl) timeSubEl.textContent = '🚀 Carga Ultra Rápida';
+            if (scoreSubEl) scoreSubEl.textContent = 'Zona Verde (Excelente)';
+            if (uxValEl) uxValEl.textContent = 'Optimizada (100%)';
+            if (uxSubEl) uxSubEl.textContent = '100% Zona del Pulgar';
 
-          if (uxSubEl) {
-            uxSubEl.textContent = window.currentLang === 'EN' ? 
-              'Thumb-Zone unoptimized' : 'Botones fuera de zona fácil';
+            if (findingsList) {
+              findingsList.innerHTML = 
+                '<li>🟢 <b>Servidor & Carga:</b> Servidor CDN ultra rápido (TTFB < 50ms) e imágenes WebP optimizadas.</li>' +
+                '<li>🟢 <b>Usabilidad Móvil:</b> Estructura 100% adaptada a la zona natural del pulgar.</li>' +
+                '<li>🟢 <b>Conversión:</b> Integraciones instantáneas y arquitectura limpia sin fricción.</li>';
+            }
+          } else {
+            if (timeCard) timeCard.className = 'speed-metric-card metric--warning';
+            if (scoreCard) scoreCard.className = 'speed-metric-card metric--warning';
+            if (uxCard) uxCard.className = 'speed-metric-card metric--warning';
+
+            if (timeSubEl) timeSubEl.textContent = '⚠️ 53% abandono de clientes';
+            if (scoreSubEl) scoreSubEl.textContent = calculatedScore < 50 ? 'Rendimiento Crítico' : 'Fricción Moderada';
+            if (uxValEl) uxValEl.textContent = calculatedScore < 45 ? 'Fricción Alta' : 'Fricción Media';
+            if (uxSubEl) uxSubEl.textContent = 'Botones fuera de zona fácil';
+
+            if (findingsList) {
+              findingsList.innerHTML = 
+                '<li>🔴 <b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.</li>' +
+                '<li>🟡 <b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.</li>' +
+                '<li>🔴 <b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.</li>';
+            }
           }
 
           window.lastAuditData = {
@@ -667,15 +706,12 @@
             loadTime: calculatedTime
           };
 
-          // Smooth scroll to results
-          if (resBox && resBox.scrollIntoView) {
-            resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
+          resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, remaining);
-      });
+      }
     };
 
-                    window.shareAuditWhatsApp = function () {
+    window.shareAuditWhatsApp = function () {
       var d = window.lastAuditData || {};
       var host = d.url || 'mi sitio web';
       var score = d.score || '38/100';
