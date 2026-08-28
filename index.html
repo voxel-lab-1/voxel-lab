@@ -141,7 +141,7 @@
 
 <link rel="preload" href="fonts/unbounded-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/styles.min.css?v=1787888984">
+<link rel="stylesheet" href="css/styles.min.css?v=1787889205">
 
 <style>
 .hero h1 {
@@ -293,7 +293,7 @@
           <button type="button" class="btn btn-primary" id="speedAuditBtn" onclick="runSpeedAudit()" data-i18n="audit_btn">Analizar Mi Web</button>
         </div>
         <div class="audit-privacy-note" style="margin-top: 10px; font-size: 0.76rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <span data-i18n="audit_privacy_note">🔒 Cifrado SSL 256-bit · *Medido bajo la metodología oficial de Google PageSpeed & Lighthouse.</span>
+          <span data-i18n="audit_privacy_note">Cifrado SSL 256-bit · *Medido bajo la metodología oficial de Google PageSpeed & Lighthouse.</span>
         </div>
 
         <!-- Loader Animado durante el análisis -->
@@ -310,7 +310,7 @@
             <div class="speed-metric-card metric--danger">
               <span class="metric-title" data-i18n="audit_m1_t">Tiempo Carga Móvil</span>
               <span class="metric-val" id="auditTimeVal">4.8s</span>
-              <span class="metric-sub" id="auditTimeSub" data-i18n="audit_m1_s">⚠️ 53% abandono de clientes</span>
+              <span class="metric-sub" id="auditTimeSub" data-i18n="audit_m1_s">53% abandono de clientes</span>
             </div>
 
             <div class="speed-metric-card metric--warning">
@@ -335,20 +335,20 @@
           <!-- Cuadro de Hallazgos Técnicos -->
           <div class="speed-findings-box">
             <div class="findings-title">
-              <span>⚠️</span> <b data-i18n="audit_findings_t">Hallazgos Técnicos Principales:</b>
+               <b data-i18n="audit_findings_t">Hallazgos Técnicos Principales:</b>
             </div>
             <ul class="findings-list" id="auditFindingsList">
-              <li data-i18n="audit_f1">🔴 <b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.</li>
-              <li data-i18n="audit_f2">🟡 <b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.</li>
-              <li data-i18n="audit_f3">🔴 <b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.</li>
+              <li data-i18n="audit_f1"><b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.</li>
+              <li data-i18n="audit_f2"><b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.</li>
+              <li data-i18n="audit_f3"><b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.</li>
             </ul>
           </div>
 
           <div class="speed-audit-footer">
             <div style="font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 12px; line-height: 1.4;">* <b>Garantía de Transparencia:</b> Medido bajo la metodología oficial de Google PageSpeed / Lighthouse. La velocidad final de cada proyecto varía según la cantidad de herramientas de marketing externas (Pixel de Meta, Analytics) y la compresión de medios administrados por el cliente.</div>
-            <span data-i18n="audit_footer">💡 <b>Diagnóstico:</b> Tu sitio actual acumula fricción. Con la arquitectura Voxel Lab cargarás <b>6x más rápido</b>.</span>
+            <span data-i18n="audit_footer"><b>Diagnóstico:</b> Tu sitio actual acumula fricción. Con la arquitectura Voxel Lab cargarás <b>6x más rápido</b>.</span>
             <div class="speed-audit-actions">
-              <button type="button" class="btn btn-ghost btn-sm" id="auditWhatsappShareBtn" onclick="shareAuditWhatsApp()" data-i18n="audit_wa_share">💬 Enviar a WhatsApp</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="auditWhatsappShareBtn" onclick="shareAuditWhatsApp()" data-i18n="audit_wa_share">Enviar a WhatsApp</button>
               <a href="#cotizador" class="btn btn-cyan btn-sm" data-i18n="audit_opt_btn">Optimizar Mi Web Ahora ➔</a>
             </div>
           </div>
@@ -859,7 +859,7 @@
   <section class="ticker-section" id="tickerSection" style="padding: 10px 0 35px;">
     <div class="wrap">
       <div style="text-align: center; margin-bottom: 12px;">
-        <span class="eyebrow" data-i18n="ticker_eyebrow">🟢 Actividad en Vivo</span>
+        <span class="eyebrow" data-i18n="ticker_eyebrow">Actividad en Vivo</span>
       </div>
       <div class="ticker-card-box" id="tickerCardBox">
         <div class="ticker-live-card" id="tickerLiveCard">
@@ -920,7 +920,7 @@
     <button type="button" class="port-modal-close" onclick="closeTermsModal()">&times;</button>
     
     <div class="port-modal-header">
-      <span class="tag">📜 Términos del Servicio · Voxel Lab</span>
+      <span class="tag">Términos del Servicio · Voxel Lab</span>
       <h3 data-i18n="terms_h3">Términos y Condiciones de Uso & Cotización</h3>
       <p data-i18n="terms_sub">Regulación del uso del portal web, herramientas de estimación y contratación de servicios.</p>
     </div>
@@ -960,7 +960,7 @@
     <button type="button" class="port-modal-close" onclick="closeLegalModal()">&times;</button>
     
     <div class="port-modal-header">
-      <span class="tag">⚖️ Aviso Legal & Cookies</span>
+      <span class="tag">Aviso Legal & Cookies</span>
       <h3 data-i18n="legal_h3">Aviso Legal, Cookies & Garantía de Servicio (SLA)</h3>
       <p data-i18n="legal_sub">Transparencia sobre almacenamiento local, seguridad e infraestructura.</p>
     </div>
@@ -990,7 +990,7 @@
 <div class="thumb-floating-btn" id="thumbFloatingBtn">
   <a href="https://api.whatsapp.com/send?phone=573217014186&text=Hola%20equipo%20Voxel%20Lab%20me%20interesa%20conocer%20los%20servicios%20%28desarrollo%20web%2C%20apps%2C%20automatizaci%C3%B3n%20e%20IA%29%20y%20recibir%20asesor%C3%ADa%20para%20mi%20proyecto." target="_blank" rel="noopener noreferrer" class="thumb-btn-inner" title="WhatsApp Voxel Lab" aria-label="WhatsApp Voxel Lab">
     <span class="thumb-online-pulse"></span>
-    <span class="thumb-btn-icon">💬</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--cyan);"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
   </a>
 </div>
 
@@ -1028,7 +1028,7 @@
     </div>
 
     <div class="port-modal-tech-box">
-      <div class="tech-title" data-i18n="pmodal_tech_t">⚙️ Arquitectura & Módulos Incluidos:</div>
+      <div class="tech-title" data-i18n="pmodal_tech_t">Arquitectura & Módulos Incluidos:</div>
       <div class="tech-tags" id="portModalTechTags">
         <span class="tech-tag">Código a Medida</span>
         <span class="tech-tag">WhatsApp API 24/7</span>
@@ -1049,7 +1049,7 @@
     <button type="button" class="port-modal-close" onclick="closePrivacyModal()">&times;</button>
     
     <div class="port-modal-header">
-      <span class="tag">⚖️ Habeas Data · Ley 1581</span>
+      <span class="tag">Habeas Data · Ley 1581</span>
       <h3 data-i18n="privacy_h3">Política de Tratamiento de Datos Personales & Privacidad</h3>
       <p data-i18n="privacy_sub">En Voxel Lab garantizamos la protección, confidencialidad y uso transparente de tu información.</p>
     </div>
@@ -1100,6 +1100,6 @@
 
 
 </div>
-<script src="js/main.min.js?v=1787888984" defer></script>
+<script src="js/main.min.js?v=1787889205" defer></script>
 </body>
 </html>

@@ -562,20 +562,20 @@
       var displayHost = url.replace(/^https?:\/\//i, '').replace(/\/.*$/, '');
 
       btn.disabled = true;
-      btn.textContent = window.currentLang === 'EN' ? 'Analyzing... ⚡' : 'Analizando... ⚡';
+      btn.textContent = window.currentLang === 'EN' ? 'Analyzing...' : 'Analizando...';
       if (resBox) resBox.style.display = 'none';
       if (loaderBox) loaderBox.style.display = 'block';
 
       var steps = window.currentLang === 'EN' ? [
-        "🔍 Connecting with Google Lighthouse Engine...",
-        "📱 Measuring mobile FCP & LCP render times...",
-        "📐 Auditing Thumb-Zone accessibility & mobile UX...",
-        "📊 Calculating customer drop-off & Voxel Lab benchmark..."
+        "Connecting with Google Lighthouse Engine...",
+        "Measuring mobile FCP & LCP render times...",
+        "Auditing Thumb-Zone accessibility & mobile UX...",
+        "Calculating customer drop-off & Voxel Lab benchmark..."
       ] : [
-        "🔍 Conectando con Google Lighthouse Engine...",
-        "📱 Midiendo tiempo de carga móvil (FCP & LCP)...",
-        "📐 Auditando accesibilidad en la Zona del Pulgar...",
-        "📊 Calculando tasa de abandono y comparativo Voxel Lab..."
+        "Conectando con Google Lighthouse Engine...",
+        "Midiendo tiempo de carga móvil (FCP & LCP)...",
+        "Auditando accesibilidad en la Zona del Pulgar...",
+        "Calculando tasa de abandono y comparativo Voxel Lab..."
       ];
 
       var stepIdx = 0;
@@ -648,7 +648,7 @@
           if (loaderBox) loaderBox.style.display = 'none';
 
           btn.disabled = false;
-          btn.textContent = window.currentLang === 'EN' ? 'Analyze My Site ⚡' : 'Analizar Mi Web ⚡';
+          btn.textContent = window.currentLang === 'EN' ? 'Analyze My Site ⚡' : 'Analizar Mi Web';
           if (resBox) resBox.style.display = 'block';
 
           var timeEl = document.getElementById('auditTimeVal');
@@ -671,32 +671,32 @@
             if (scoreCard) scoreCard.className = 'speed-metric-card metric--success';
             if (uxCard) uxCard.className = 'speed-metric-card metric--success';
 
-            if (timeSubEl) timeSubEl.textContent = '🚀 Carga Ultra Rápida';
+            if (timeSubEl) timeSubEl.textContent = 'Carga Ultra Rápida';
             if (scoreSubEl) scoreSubEl.textContent = 'Zona Verde (Excelente)';
             if (uxValEl) uxValEl.textContent = 'Optimizada (100%)';
             if (uxSubEl) uxSubEl.textContent = '100% Zona del Pulgar';
 
             if (findingsList) {
               findingsList.innerHTML = 
-                '<li>🟢 <b>Servidor & Carga:</b> Servidor CDN ultra rápido (TTFB < 50ms) e imágenes WebP optimizadas.</li>' +
-                '<li>🟢 <b>Usabilidad Móvil:</b> Estructura 100% adaptada a la zona natural del pulgar.</li>' +
-                '<li>🟢 <b>Conversión:</b> Integraciones instantáneas y arquitectura limpia sin fricción.</li>';
+                '<li><b>Servidor & Carga:</b> Servidor CDN ultra rápido (TTFB < 50ms) e imágenes WebP optimizadas.</li>' +
+                '<li><b>Usabilidad Móvil:</b> Estructura 100% adaptada a la zona natural del pulgar.</li>' +
+                '<li><b>Conversión:</b> Integraciones instantáneas y arquitectura limpia sin fricción.</li>';
             }
           } else {
             if (timeCard) timeCard.className = 'speed-metric-card metric--warning';
             if (scoreCard) scoreCard.className = 'speed-metric-card metric--warning';
             if (uxCard) uxCard.className = 'speed-metric-card metric--warning';
 
-            if (timeSubEl) timeSubEl.textContent = '⚠️ 53% abandono de clientes';
+            if (timeSubEl) timeSubEl.textContent = '53% abandono de clientes';
             if (scoreSubEl) scoreSubEl.textContent = calculatedScore < 50 ? 'Rendimiento Crítico' : 'Fricción Moderada';
             if (uxValEl) uxValEl.textContent = calculatedScore < 45 ? 'Fricción Alta' : 'Fricción Media';
             if (uxSubEl) uxSubEl.textContent = 'Botones fuera de zona fácil';
 
             if (findingsList) {
               findingsList.innerHTML = 
-                '<li>🔴 <b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.</li>' +
-                '<li>🟡 <b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.</li>' +
-                '<li>🔴 <b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.</li>';
+                '<li><b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.</li>' +
+                '<li><b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.</li>' +
+                '<li><b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.</li>';
             }
           }
 
@@ -898,20 +898,20 @@
     (function initLiveActivityRotation() {
       var liveItems = [
         { icon: '⚡', es: 'Un negocio en Bogotá analizó su web (32/100) y solicitó optimización técnica.', en: 'A business in Bogota audited their site (32/100) and requested technical optimization.', timeES: 'Hace 2 min', timeEN: '2m ago' },
-        { icon: '📈', es: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.', en: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.', timeES: 'Hace 5 min', timeEN: '5m ago' },
+        { icon: '•', es: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.', en: 'Someone in Medellin requested a Web App + WhatsApp Automation quote.', timeES: 'Hace 5 min', timeEN: '5m ago' },
         { icon: '🚀', es: 'Nuevo E-Commerce de Moda lanzado en Cali con 0.4s de velocidad y 99/100 en Google.', en: 'New Fashion E-Commerce launched in Cali with 0.4s load speed & 99/100 Google score.', timeES: 'Hace 9 min', timeEN: '9m ago' },
         { icon: '💬', es: 'Consulta recibida desde Miami (EE.UU.) para desarrollo de Software a medida con IA.', en: 'Inquiry received from Miami (US) for Custom AI Software development.', timeES: 'Hace 14 min', timeEN: '14m ago' },
-        { icon: '🤖', es: 'Clínica dental en Bucaramanga activó Bot de Citas 24/7 integrado a Google Calendar.', en: 'Dental clinic in Bucaramanga activated 24/7 Appointment Bot linked to Google Calendar.', timeES: 'Hace 18 min', timeEN: '18m ago' },
+        { icon: '•', es: 'Clínica dental en Bucaramanga activó Bot de Citas 24/7 integrado a Google Calendar.', en: 'Dental clinic in Bucaramanga activated 24/7 Appointment Bot linked to Google Calendar.', timeES: 'Hace 18 min', timeEN: '18m ago' },
         { icon: '🛍️', es: 'Tienda de accesorios en Barranquilla integró pasarela PayU + Facturación automática.', en: 'Boutique store in Barranquilla integrated PayU gateway + Automatic Invoicing.', timeES: 'Hace 23 min', timeEN: '23m ago' },
         { icon: '📊', es: 'Empresa de logística en Manizales solicitó Dashboard de Gestión con Copiloto IA.', en: 'Logistics company in Manizales requested Management Dashboard with AI Copilot.', timeES: 'Hace 29 min', timeEN: '29m ago' },
         { icon: '📱', es: 'Restaurante en Cartagena instaló Web App PWA para pedidos directos sin comisiones.', en: 'Restaurant in Cartagena deployed PWA Web App for direct commission-free orders.', timeES: 'Hace 35 min', timeEN: '35m ago' },
         { icon: '⚡', es: 'Diagnóstico rápido: Sitio web en Pereira optimizó su tiempo de carga de 4.2s a 0.5s.', en: 'Speed diagnostic: Business in Pereira improved load time from 4.2s to 0.5s.', timeES: 'Hace 41 min', timeEN: '41m ago' },
-        { icon: '💳', es: 'Agencia de viajes en Santa Marta implementó pago en 1-clic con confirmación en WhatsApp.', en: 'Travel agency in Santa Marta enabled 1-click checkout with WhatsApp confirmation.', timeES: 'Hace 47 min', timeEN: '47m ago' },
+        { icon: '•', es: 'Agencia de viajes en Santa Marta implementó pago en 1-clic con confirmación en WhatsApp.', en: 'Travel agency in Santa Marta enabled 1-click checkout with WhatsApp confirmation.', timeES: 'Hace 47 min', timeEN: '47m ago' },
         { icon: '🧠', es: 'Firma consultora en Bogotá solicitó sistema RAG para búsqueda de documentos con IA.', en: 'Consulting firm in Bogota requested RAG AI system for document search.', timeES: 'Hace 53 min', timeEN: '53m ago' },
-        { icon: '📈', es: 'Hotel boutique en San Andrés cotizó automatización de reservas directas por WhatsApp.', en: 'Boutique hotel in San Andres requested direct booking automation via WhatsApp.', timeES: 'Hace 1h', timeEN: '1h ago' },
+        { icon: '•', es: 'Hotel boutique en San Andrés cotizó automatización de reservas directas por WhatsApp.', en: 'Boutique hotel in San Andres requested direct booking automation via WhatsApp.', timeES: 'Hace 1h', timeEN: '1h ago' },
         { icon: '🚀', es: 'Plataforma educativa en Medellín redujo -70% el tiempo de procesamiento manual.', en: 'EdTech platform in Medellin cut manual operation time by -70%.', timeES: 'Hace 1h 12m', timeEN: '1h 12m ago' },
         { icon: '💬', es: 'Lead internacional desde Madrid (España) solicitó diseño de landing page de alta conversión.', en: 'Global lead from Madrid (Spain) requested high-converting landing page design.', timeES: 'Hace 1h 25m', timeEN: '1h 25m ago' },
-        { icon: '🤖', es: 'Empresa de seguros en Cúcuta integró asistente virtual Meta WhatsApp API 24/7.', en: 'Insurance provider in Cucuta integrated 24/7 Meta WhatsApp API virtual agent.', timeES: 'Hace 1h 40m', timeEN: '1h 40m ago' },
+        { icon: '•', es: 'Empresa de seguros en Cúcuta integró asistente virtual Meta WhatsApp API 24/7.', en: 'Insurance provider in Cucuta integrated 24/7 Meta WhatsApp API virtual agent.', timeES: 'Hace 1h 40m', timeEN: '1h 40m ago' },
         { icon: '⚡', es: 'Comercio mayorista en Pasto analizó su tienda online (41/100) y agendó auditoría.', en: 'Wholesale store in Pasto audited their shop (41/100) and scheduled tech review.', timeES: 'Hace 2h', timeEN: '2h ago' },
         { icon: '📊', es: 'Startup en Bogotá implementó panel de control de ventas con exportación auto en Excel.', en: 'Tech startup in Bogota deployed sales analytics dashboard with auto-Excel export.', timeES: 'Hace 2h 15m', timeEN: '2h 15m ago' },
         { icon: '📱', es: 'Marca de ropa en Villavicencio lanzó catálogo móvil optimizado para la zona del pulgar.', en: 'Apparel brand in Villavicencio launched mobile-first thumb-zone catalog.', timeES: 'Hace 2h 30m', timeEN: '2h 30m ago' }
@@ -1073,7 +1073,7 @@
           audit_sub: 'Descubre cuántos clientes y dinero estás dejando ir por tiempos de carga lentos.',
           audit_btn: 'Analizar Mi Web',
           audit_m1_t: 'Tiempo Carga Móvil',
-          audit_m1_s: '⚠️ 53% abandono de clientes',
+          audit_m1_s: '53% abandono de clientes',
           audit_m2_t: 'Puntaje Google Speed',
           audit_m2_s: 'Rendimiento SEO deficiente',
           audit_m4_t: 'UX Móvil & Pulgar',
@@ -1081,11 +1081,11 @@
           audit_m3_t: 'Solución Voxel Lab',
           audit_m3_s: '🚀 Zona Verde Google (90+ a 100)',
           audit_findings_t: 'Hallazgos Técnicos Principales:',
-          audit_f1: '🔴 <b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.',
-          audit_f2: '🟡 <b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.',
-          audit_f3: '🔴 <b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.',
-          audit_footer: '💡 <b>Diagnóstico:</b> Tu sitio actual acumula fricción. Con la arquitectura Voxel Lab cargarás <b>6x más rápido</b>.',
-          audit_wa_share: '💬 Enviar a WhatsApp',
+          audit_f1: '<b>Servidor & Carga:</b> Tiempos de respuesta inicial (TTFB) elevados e imágenes sin compresión moderna.',
+          audit_f2: '<b>Usabilidad Móvil:</b> Menú y botones de contacto fuera de la zona natural del pulgar.',
+          audit_f3: '<b>Conversión:</b> Sin pasarela de cobro rápido ni respuesta automática por WhatsApp 24/7.',
+          audit_footer: '<b>Diagnóstico:</b> Tu sitio actual acumula fricción. Con la arquitectura Voxel Lab cargarás <b>6x más rápido</b>.',
+          audit_wa_share: 'Enviar a WhatsApp',
           audit_opt_btn: 'Optimizar Mi Web Ahora ➔',
           serv_eyebrow: 'Lo que construimos',
           serv_h2: 'Cuatro piezas, una sola arquitectura',
@@ -1212,14 +1212,14 @@
           foot_copy: '<span class="brand-mark"></span> &copy; 2026 Voxel Lab &mdash; Soluciones digitales que impulsan tu negocio.',
           foot_contact: 'Contacto',
           thumb_btn_text: '🟢 En línea · Respuesta en &lt; 15 min',
-          port_cue: '👁️ Ver Caso Interactivo ➔',
+          port_cue: 'Ver Caso Interactivo ➔',
           pmodal_s1: 'Velocidad Carga',
           pmodal_s2: 'Google Speed',
           pmodal_s3: 'Conversión',
-          pmodal_tech_t: '⚙️ Arquitectura & Módulos Incluidos:',
+          pmodal_tech_t: 'Arquitectura & Módulos Incluidos:',
           pmodal_cta: 'Quiero una solución similar ➔',
           ticker_badge: 'ACTIVIDAD EN VIVO',
-          ticker_eyebrow: '🟢 Actividad en Vivo',
+          ticker_eyebrow: 'Actividad en Vivo',
           t_i1: 'Un negocio en Bogotá analizó su web (34/100) y solicitó optimización.',
           t_i2: 'Alguien en Medellín cotizó una Web App con Automatización de WhatsApp.',
           t_i3: 'Nuevo E-Commerce lanzado con 0.4s de velocidad y 99/100 en Google.',
