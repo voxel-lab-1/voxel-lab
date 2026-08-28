@@ -408,7 +408,12 @@
         );
       }
 
-      waBtn.addEventListener('click', function () { handleActionClick('WhatsApp'); });
+      waBtn.addEventListener('click', function () {
+        if (selectedTypes.length === 0) return;
+        var payload = waBtn.dataset.payload || summaryEl.textContent;
+        var waUrl = 'https://wa.me/message/IIIEIUCWQF7DP1?text=' + encodeURIComponent(payload);
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
       emailBtn.addEventListener('click', function () { handleActionClick('Correo Electrónico'); });
 
     })();
@@ -678,7 +683,7 @@
         'Hola Voxel Lab, I audited my website (' + host + ') and got a score of ' + score + ' (load time ' + time + '). I want to optimize it for speed and sales.' :
         'Hola Voxel Lab, acabo de analizar mi web (' + host + ') y obtuve un puntaje de ' + score + ' (tiempo de carga ' + time + '). Quiero optimizarla para aumentar mis ventas.';
 
-      var waUrl = 'https://wa.me/573000000000?text=' + encodeURIComponent(text);
+      var waUrl = 'https://wa.me/message/IIIEIUCWQF7DP1?text=' + encodeURIComponent(text);
       window.open(waUrl, '_blank', 'noopener,noreferrer');
     };
 
